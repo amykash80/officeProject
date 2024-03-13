@@ -10,11 +10,14 @@
     <Folder Include="Abstractions\IRepositories\" />
     <Folder Include="Abstractions\IServices\" />
     <Folder Include="MapperProfiles\" />
-    <Folder Include="DI\" />
-    <Folder Include="Utils\" />
     <Folder Include="Shared\" />
     <Folder Include="RRModels\" />
     <Folder Include="Services\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
 </Project>
