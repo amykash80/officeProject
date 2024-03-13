@@ -5,6 +5,16 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamlineAcademy.Api", "StreamlineAcademy.Api\StreamlineAcademy.Api.csproj", "{8FB908C8-974C-41BF-B3EF-89CD225368E2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC48A178-80D3-4870-BAF2-FE2628B8FDFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{058E9890-31B1-49C3-94B9-57A671B211F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{4CF05594-6A55-419C-A011-B9395E60AACF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FAE2FF6A-2C0D-4EE3-8C4D-AC08757342CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externel", "Externel", "{8D76A73B-A5E0-4E2D-A2C4-0EE6E3413D7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +28,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8FB908C8-974C-41BF-B3EF-89CD225368E2} = {4CF05594-6A55-419C-A011-B9395E60AACF}
+		{4CF05594-6A55-419C-A011-B9395E60AACF} = {FC48A178-80D3-4870-BAF2-FE2628B8FDFF}
+		{FAE2FF6A-2C0D-4EE3-8C4D-AC08757342CF} = {FC48A178-80D3-4870-BAF2-FE2628B8FDFF}
+		{8D76A73B-A5E0-4E2D-A2C4-0EE6E3413D7F} = {FC48A178-80D3-4870-BAF2-FE2628B8FDFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F526C85-0A2B-4426-8C1F-7711CB5EEB2B}
