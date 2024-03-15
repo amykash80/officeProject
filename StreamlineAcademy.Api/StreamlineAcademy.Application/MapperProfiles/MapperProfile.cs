@@ -23,10 +23,5 @@ namespace StreamlineAcademy.Application.MapperProfiles
         }
 
 
-
-
-
-
-
     }
 }

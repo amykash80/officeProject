@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\IServices\" />
-    <Folder Include="Shared\" />
     <Folder Include="Services\" />
     <Folder Include="Utils\" />
   </ItemGroup>
