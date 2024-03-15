@@ -25,12 +25,13 @@ namespace StreamlineAcademy.Application.Services
         }
         public async Task<ApiResponse<EnquiryResponse>> AddEnquiry(EnquiryRequest request)
         {
-            var nameExists = await authRepository.FirstOrDefaultAsync(x=>x.Name== request.Name);
-            if(nameExists is not null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Name already Exists", HttpStatusCodes.BadRequest);
+            if( await authRepository.FirstOrDefaultAsync(x=>x.Name== request.Name) is not null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse("Name  already Exists", HttpStatusCodes.BadRequest);
+
+            if (await authRepository.FirstOrDefaultAsync(x => x.Email == request.Email ) is not null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse(" Email already Exists", HttpStatusCodes.BadRequest);
 
             var enquiry = mapper.Map<Enquiry>(request);
-            enquiry.Id=Guid.NewGuid();
 
             var res = await authRepository.InsertAsync(enquiry);
             if (res > 0)
