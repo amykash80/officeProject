@@ -43,9 +43,11 @@ namespace StreamlineAcademy.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> InsertAsync(T model)
+        public async Task<int> InsertAsync(T model)
         {
-            throw new NotImplementedException();
+
+           await context.Set<T>().AddAsync(model);
+            return await context.SaveChangesAsync();
         }
 
         public Task<int> InsertRangeAsync(List<T> model)
