@@ -1,4 +1,5 @@
-﻿using StreamlineAcademy.Application.Abstractions.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Domain.Shared;
 using StreamlineAcademy.Persistence.Data;
 using System;
@@ -28,9 +29,12 @@ namespace StreamlineAcademy.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public  Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
+        public async Task<T>  FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
+           var res= await context.Set<T>().FirstOrDefaultAsync(expression);
+            return res!;
+            
+            
         }
 
         public Task<IEnumerable<T>> GetAllAsync()

@@ -1,3 +1,4 @@
+using StreamlineAcademy.Application.DI;
 using StreamlineAcademy.Persistence.DI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Adding Services added inside AddPersistenceService Etension Method
-builder.Services.AddPersistenceService(builder.Configuration);
+builder.Services.AddPersistenceService(builder.Configuration).AddAplicationService();
 
 var app = builder.Build();
 

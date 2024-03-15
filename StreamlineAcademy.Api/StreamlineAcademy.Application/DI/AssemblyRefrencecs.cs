@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using StreamlineAcademy.Application.Abstractions.IServices;
+using StreamlineAcademy.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace StreamlineAcademy.Application.DI
         public static IServiceCollection AddAplicationService(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddScoped<IAuthService,AuthService>();
             return services;
         }
     }
