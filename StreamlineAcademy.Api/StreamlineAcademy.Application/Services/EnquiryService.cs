@@ -39,9 +39,7 @@ namespace StreamlineAcademy.Application.Services
             if (res > 0)
                 return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry), "Enquiry Added Successfully", HttpStatusCodes.Created);
                 return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again",HttpStatusCodes.InternalServerError);
-
-
-            
+ 
         }
 
         public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
@@ -78,14 +76,13 @@ namespace StreamlineAcademy.Application.Services
             }
             return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
 
-
         }
 
         public async Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries()
         {
             var enquiryList = await enquiryrepository.GetAllAsync();
             if(enquiryList.Any())
-                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList));
+                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList.OrderBy(x=>x.Name)));
                 return ApiResponse<IEnumerable<EnquiryResponse>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
         }
 
