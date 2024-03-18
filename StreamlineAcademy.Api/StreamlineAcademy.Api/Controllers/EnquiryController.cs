@@ -15,7 +15,7 @@ namespace StreamlineAcademy.Api.Controllers
         private readonly IEnquiryService enquiryService;
 
         public EnquiryController(IEnquiryService enquiryService)
-
+             
         {
             this.enquiryService = enquiryService;
         }

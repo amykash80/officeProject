@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Domain.Shared;
 using StreamlineAcademy.Persistence.Data;
@@ -60,9 +60,10 @@ namespace StreamlineAcademy.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> UpdateAsync(T model)
+        public async Task<int> UpdateAsync(T model)
         {
-            throw new NotImplementedException();
+            await Task.Run (()=> context.Set<T>().Update(model));
+            return await context.SaveChangesAsync();
         }
     }
 }
