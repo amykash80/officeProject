@@ -26,5 +26,10 @@ namespace StreamlineAcademy.Api.Controllers
         
         public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry (EnquiryUpdateRequest model) => await enquiryService.UpdateEnquiry( model);
 
+        [HttpDelete("{id:guid}")]
+
+        public async Task<ApiResponse<EnquiryResponse>> DeleteEnquiry (Guid id) => await enquiryService.DeleteEnquiry(id);
+
+
     }
 }

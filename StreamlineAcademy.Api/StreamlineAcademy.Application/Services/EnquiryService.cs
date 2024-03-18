@@ -51,12 +51,6 @@ namespace StreamlineAcademy.Application.Services
 
             return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
             
-            if (await enquiryrepository.FirstOrDefaultAsync(x => x.Name == request.Name) is not null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Name  already Exists", HttpStatusCodes.BadRequest);
-
-            if (await enquiryrepository.FirstOrDefaultAsync(x => x.Email == request.Email) is not null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse(" Email already Exists", HttpStatusCodes.BadRequest);
-
             var enquiry = mapper.Map<Enquiry>(request);
 
             var res = await enquiryrepository.UpdateAsync(enquiry);
@@ -65,6 +59,11 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry), "Enquiry updated Successfully", HttpStatusCodes.Created);
             return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
 
+        }
+
+        public  Task<ApiResponse<EnquiryResponse>> DeleteEnquiry(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
