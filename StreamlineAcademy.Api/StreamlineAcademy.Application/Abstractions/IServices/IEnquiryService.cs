@@ -11,5 +11,8 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
     public interface IEnquiryService
     {
         Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest request);
+        Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries();
+
+        Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id);
     }
 }

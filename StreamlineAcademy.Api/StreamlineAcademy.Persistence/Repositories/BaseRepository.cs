@@ -37,14 +37,15 @@ namespace StreamlineAcademy.Persistence.Repositories
             
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+           return await context.Set<T>().ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
+            var res = await context.Set<T>().FirstOrDefaultAsync(expression);
+            return res!;
         }
 
         public async Task<int> InsertAsync(T model)
