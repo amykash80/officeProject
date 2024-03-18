@@ -46,7 +46,6 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
         {
-            //var existingEnquiry = await enquiryrepository.GetByIdAsync(enquiryId);
             if (await enquiryrepository.GetByIdAsync(x=>x.Id==request.Id) is null)
 
             return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
@@ -64,6 +63,22 @@ namespace StreamlineAcademy.Application.Services
         public  Task<ApiResponse<EnquiryResponse>> DeleteEnquiry(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries()
+        {
+            var enquiryList = await enquiryrepository.GetAllAsync();
+            if(enquiryList.Any())
+                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList));
+                return ApiResponse<IEnumerable<EnquiryResponse>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
+        }
+
+        public async Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id)
+        {
+            if (await enquiryrepository.GetByIdAsync(x => x.Id == id) is null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry Not Found");
+
+            return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Services;
@@ -23,11 +24,22 @@ namespace StreamlineAcademy.Api.Controllers
         [HttpPost]
         public async Task<ApiResponse<EnquiryResponse>> AddEnquiry(EnquiryRequest model) => await enquiryService.AddEnquiry(model);
 
-        [HttpGet]
+        [HttpPut]
+
+        public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest model) => await enquiryService.UpdateEnquiry(model);
 
         [HttpDelete("{id:guid}")]
 
         public async Task<ApiResponse<EnquiryResponse>> DeleteEnquiry (Guid id) => await enquiryService.DeleteEnquiry(id);
+
+        [HttpGet]
+
+        public async Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries() => await enquiryService.GetAllEnquiries();
+
+
+        [HttpGet("{id:guid}")]
+
+        public async Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id) => await enquiryService.GetEnquiryById(id);
 
 
     }

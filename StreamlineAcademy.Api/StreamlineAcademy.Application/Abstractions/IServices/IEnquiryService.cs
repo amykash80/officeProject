@@ -14,5 +14,9 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
         Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request);
 
         Task <ApiResponse<EnquiryResponse>> DeleteEnquiry (Guid id);
+
+        Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries();
+
+        Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id);
     }
 }
