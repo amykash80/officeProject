@@ -4,6 +4,7 @@ using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Services;
 using StreamlineAcademy.Application.Shared;
+using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Api.Controllers
 {
@@ -20,11 +21,9 @@ namespace StreamlineAcademy.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest model) =>  await enquiryService.AddEnquiry(model);
+        public async Task<ApiResponse<EnquiryResponse>> AddEnquiry(EnquiryRequest model) => await enquiryService.AddEnquiry(model);
 
-        [HttpPut]
-        
-        public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry (EnquiryUpdateRequest model) => await enquiryService.UpdateEnquiry( model);
+        [HttpGet]
 
         [HttpDelete("{id:guid}")]
 
