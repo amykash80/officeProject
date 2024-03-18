@@ -18,6 +18,8 @@ namespace StreamlineAcademy.Application.MapperProfiles
             {
                 CreateMap<EnquiryRequest, Enquiry>();
                 CreateMap<Enquiry, EnquiryResponse>();
+                CreateMap<EnquiryUpdateRequest, Enquiry>();
+                
             }
 
         }

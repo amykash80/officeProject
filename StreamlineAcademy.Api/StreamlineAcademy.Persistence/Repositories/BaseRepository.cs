@@ -19,9 +19,10 @@ namespace StreamlineAcademy.Persistence.Repositories
         {
             this.context = context;
         }
-        public  Task<int> DeleteAsync(T model)
+        public async Task<int> DeleteAsync(T model)
         {
-            throw new NotImplementedException();
+            context.Set<T>().Remove(model);
+            return await context.SaveChangesAsync();
         }
 
         public Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> expression)

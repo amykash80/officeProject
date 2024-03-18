@@ -46,23 +46,39 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
         {
-            if (await enquiryrepository.GetByIdAsync(x=>x.Id==request.Id) is null)
+            var result = await enquiryrepository.GetByIdAsync(x => x.Id == request.Id);
 
+            if(result is null)
             return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
-            
-            var enquiry = mapper.Map<Enquiry>(request);
+
+            var enquiry = mapper.Map(request,result);
+  
+            var returnVal=  await enquiryrepository.UpdateAsync(enquiry);
 
 
-            if (enquiry is not null)
-                return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry));
+            if (returnVal is > 0)
+                return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry),"Enquiry Updated Successfullly");
             return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
 
 
         }
 
-        public  Task<ApiResponse<EnquiryResponse>> DeleteEnquiry(Guid id)
+        public  async Task<ApiResponse<EnquiryResponse>> DeleteEnquiry(Guid id)
         {
-            throw new NotImplementedException();
+
+            var existingEnquiry = await enquiryrepository.GetByIdAsync(x => x.Id == id);
+            if (existingEnquiry is null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry Not Found");
+           
+            var result = await enquiryrepository.DeleteAsync(existingEnquiry);
+            if (result is > 0)
+            {
+                var deleteResponse = mapper.Map<EnquiryResponse>(existingEnquiry);
+                return ApiResponse<EnquiryResponse>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
+            }
+            return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
+
+
         }
 
         public async Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries()
