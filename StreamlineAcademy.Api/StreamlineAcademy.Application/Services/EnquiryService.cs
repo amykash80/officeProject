@@ -47,13 +47,12 @@ namespace StreamlineAcademy.Application.Services
         public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
         {
             //var existingEnquiry = await enquiryrepository.GetByIdAsync(enquiryId);
-            if (await enquiryrepository.GetByIdAsync(request.Id) is null)
+            if (await enquiryrepository.GetByIdAsync(x=>x.Id==request.Id) is null)
 
             return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
             
             var enquiry = mapper.Map<Enquiry>(request);
 
-            var enquiry = await enquiryrepository.GetByIdAsync(x=>x.Id == id);
 
             if (enquiry is not null)
                 return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry));
