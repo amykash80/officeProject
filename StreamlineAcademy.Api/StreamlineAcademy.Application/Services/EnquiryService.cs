@@ -43,5 +43,28 @@ namespace StreamlineAcademy.Application.Services
 
             
         }
+
+        public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
+        {
+            //var existingEnquiry = await enquiryrepository.GetByIdAsync(enquiryId);
+            if (await enquiryrepository.GetByIdAsync(request.Id) is null)
+
+            return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
+            
+            if (await enquiryrepository.FirstOrDefaultAsync(x => x.Name == request.Name) is not null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse("Name  already Exists", HttpStatusCodes.BadRequest);
+
+            if (await enquiryrepository.FirstOrDefaultAsync(x => x.Email == request.Email) is not null)
+                return ApiResponse<EnquiryResponse>.ErrorResponse(" Email already Exists", HttpStatusCodes.BadRequest);
+
+            var enquiry = mapper.Map<Enquiry>(request);
+
+            var res = await enquiryrepository.UpdateAsync(enquiry);
+
+            if (res > 0)
+                return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry), "Enquiry updated Successfully", HttpStatusCodes.Created);
+            return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
+
+        }
     }
 }
