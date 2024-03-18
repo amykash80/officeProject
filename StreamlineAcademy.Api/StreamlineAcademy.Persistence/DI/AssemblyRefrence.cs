@@ -18,7 +18,7 @@ namespace StreamlineAcademy.Persistence.DI
         public static IServiceCollection AddPersistenceService(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddDbContextPool<StreamlineAcademyDbContet>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(StreamlineAcademyDbContet))));
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IEnquiryRepository, EnquiryRepository>();
             return services;
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Application.Abstractions.IServices
 {
-    public interface IAuthService
+    public interface IEnquiryService
     {
         Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest request);
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Application.Abstractions.IRepositories
 {
-    public interface IAuthRepository:IBaseRepository<Enquiry>
+    public interface IEnquiryRepository:IBaseRepository<Enquiry>
     {
     }
 }

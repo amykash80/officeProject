@@ -16,7 +16,7 @@ namespace StreamlineAcademy.Application.DI
         public static IServiceCollection AddAplicationService(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<IAuthService,AuthService>();
+            services.AddScoped<IEnquiryService,EnquiryService>();
             return services;
         }
     }

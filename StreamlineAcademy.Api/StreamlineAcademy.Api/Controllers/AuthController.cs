@@ -9,18 +9,18 @@ namespace StreamlineAcademy.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class EnquiryController : ControllerBase
     {
-        private readonly IAuthService authService;
+        private readonly IEnquiryService enquiryService;
 
-        public AuthController(IAuthService authService)
+        public EnquiryController(IEnquiryService enquiryService)
              
         {
-            this.authService = authService;
+            this.enquiryService = enquiryService;
         }
 
-        [HttpPost("Enquiry")]
-        public async Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest model) =>  await authService.AddEnquiry(model);
+        [HttpPost]
+        public async Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest model) =>  await enquiryService.AddEnquiry(model);
 
 
     }

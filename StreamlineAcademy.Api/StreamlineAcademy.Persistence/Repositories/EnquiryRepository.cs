@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Persistence.Repositories
 {
-    public class AuthRepository:BaseRepository<Enquiry>, IAuthRepository
+    public class EnquiryRepository:BaseRepository<Enquiry>, IEnquiryRepository
     {
-        public AuthRepository(StreamlineAcademyDbContet context):base(context)
+        public EnquiryRepository(StreamlineAcademyDbContet context):base(context)
         {
             
         }
