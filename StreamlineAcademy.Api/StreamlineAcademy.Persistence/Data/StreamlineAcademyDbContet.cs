@@ -16,5 +16,11 @@ namespace StreamlineAcademy.Persistence.Data
         }
 
         public DbSet<Enquiry> Enquiries { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Enquiry>().HasIndex(x => x.Name);
+            modelBuilder.Entity<Enquiry>().HasIndex(y => y.Email);
+        }
     }
 }
