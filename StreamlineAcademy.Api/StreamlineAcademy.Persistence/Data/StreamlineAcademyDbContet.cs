@@ -18,19 +18,16 @@ namespace StreamlineAcademy.Persistence.Data
         }
 
         public DbSet<Enquiry> Enquiries { get; set; }
-<<<<<<< Updated upstream
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Enquiry>().HasIndex(x => x.Name);
-            modelBuilder.Entity<Enquiry>().HasIndex(y => y.Email);
-        }
-=======
+       
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Enquiry>().HasIndex(x => x.Name);
+            modelBuilder.Entity<Enquiry>().HasIndex(y => y.Email);
             var Passwordsalt=AppEncryption.GenerateSalt();
             modelBuilder.Entity<SuperAdmin>().HasData(
 
@@ -51,6 +48,5 @@ namespace StreamlineAcademy.Persistence.Data
         }
 
         
->>>>>>> Stashed changes
     }
 }

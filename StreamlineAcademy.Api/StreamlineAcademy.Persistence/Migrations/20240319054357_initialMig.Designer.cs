@@ -12,8 +12,8 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    [Migration("20240319052600_SuperAdminSeed")]
-    partial class SuperAdminSeed
+    [Migration("20240319054357_initialMig")]
+    partial class initialMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,17 +36,21 @@ namespace StreamlineAcademy.Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Enquiries");
                 });
@@ -94,13 +98,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("727ec1ad-e091-459e-a95a-f8916386f46e"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 19, 10, 55, 58, 731, DateTimeKind.Unspecified).AddTicks(7196), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("38701b28-7e1d-4c1a-a046-7bd1e4fbcfe8"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 19, 11, 13, 56, 895, DateTimeKind.Unspecified).AddTicks(4894), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$wMw82eVOwAB.oFHLNk4JqOPsQlIadvtHKZGR4Z/cKt9JUAp8EDIoK",
+                            Password = "$2a$11$C0GyQL/Xz0n08Rh9UzTO/OPULZSx1DSdYkT/JoAxIqlhpVvYm7VhC",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$wMw82eVOwAB.oFHLNk4JqO",
+                            Salt = "$2a$11$C0GyQL/Xz0n08Rh9UzTO/O",
                             UserName = "superadmin@123",
                             UserRole = 1
                         });
