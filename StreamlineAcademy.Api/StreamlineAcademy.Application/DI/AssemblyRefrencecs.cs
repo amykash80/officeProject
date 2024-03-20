@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.Services;
 using System;
@@ -13,10 +15,13 @@ namespace StreamlineAcademy.Application.DI
     public static class AssemblyRefrencecs
     {
 
-        public static IServiceCollection AddAplicationService(this IServiceCollection services)
+        public static IServiceCollection AddAplicationService(this IServiceCollection services,string WebRootPath   )
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IEnquiryService,EnquiryService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddSingleton<IStorageService>(new StorageService(WebRootPath));
+
             return services;
         }
     }

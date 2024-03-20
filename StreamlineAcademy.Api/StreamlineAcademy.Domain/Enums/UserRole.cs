@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Domain.Enums
 {
-    public enum UserRole
+    public enum UserRole:byte
     {
         SuperAdmin = 1,
         AcademyAdmin= 2,

@@ -19,6 +19,7 @@ namespace StreamlineAcademy.Persistence.DI
         {
             services.AddDbContextPool<StreamlineAcademyDbContet>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(StreamlineAcademyDbContet))));
             services.AddScoped<IEnquiryRepository, EnquiryRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
             return services;
         }
     }

@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Adding Services added inside AddPersistenceService Etension Method
-builder.Services.AddPersistenceService(builder.Configuration).AddAplicationService();
+builder.Services.AddPersistenceService(builder.Configuration).AddAplicationService(builder.Environment.WebRootPath);
 
 var app = builder.Build();
 
