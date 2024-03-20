@@ -17,6 +17,7 @@ namespace StreamlineAcademy.Api.Controllers
             this.academyService = academyService;
         }
 
+        [HttpPost]
         public async Task<ApiResponse<int>> RegisterAcademy(AcademyRegistrationRequest request)
         {
            return await academyService.Register(request);

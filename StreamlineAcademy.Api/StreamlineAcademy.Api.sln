@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FAE2FF6A-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externel", "Externel", "{8D76A73B-A5E0-4E2D-A2C4-0EE6E3413D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamlineAcademy.Application", "StreamlineAcademy.Application\StreamlineAcademy.Application.csproj", "{A9F0F174-FB94-4402-9205-A014F87FCE90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamlineAcademy.Application", "StreamlineAcademy.Application\StreamlineAcademy.Application.csproj", "{A9F0F174-FB94-4402-9205-A014F87FCE90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamlineAcademy.Domain", "StreamlineAcademy.Domain\StreamlineAcademy.Domain.csproj", "{0ABA741B-11A0-428F-B142-97D4FF187A59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamlineAcademy.Domain", "StreamlineAcademy.Domain\StreamlineAcademy.Domain.csproj", "{0ABA741B-11A0-428F-B142-97D4FF187A59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamlineAcademy.Infrastructure", "StreamlineAcademy.Infrastructure\StreamlineAcademy.Infrastructure.csproj", "{B5476325-F2AF-4D77-9ADF-794834402F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamlineAcademy.Infrastructure", "StreamlineAcademy.Infrastructure\StreamlineAcademy.Infrastructure.csproj", "{B5476325-F2AF-4D77-9ADF-794834402F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamlineAcademy.Persistence", "StreamlineAcademy.Persistence\StreamlineAcademy.Persistence.csproj", "{41B7EF12-6E0D-49DB-942F-594287082F0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamlineAcademy.Persistence", "StreamlineAcademy.Persistence\StreamlineAcademy.Persistence.csproj", "{41B7EF12-6E0D-49DB-942F-594287082F0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

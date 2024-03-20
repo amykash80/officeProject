@@ -31,6 +31,7 @@ namespace StreamlineAcademy.Application.Services
             PhoneNumber=request.AcademyRequest.PhoneNumber,
             PostalCode=request.AcademyRequest.PostalCode,
             Email=request.AcademyRequest.Email,
+            Address =request.AcademyRequest.Address,
             AcademyTypeId=request.AcademyRequest.AcademyTypeId
 
             };

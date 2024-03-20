@@ -39,7 +39,7 @@ namespace StreamlineAcademy.Application.RRModels
 
         public Guid AcademyTypeId { get; set; }
 
-        public IFormFile? Logo { get; set; }
+       // public IFormFile? Logo { get; set; }
     }
 
 
@@ -57,7 +57,7 @@ namespace StreamlineAcademy.Application.RRModels
 
     {
         public AcademyRequest AcademyRequest { get; set; } = null!;
-        public IEnumerable<AcademyDestinationRequest> AcademyDestinations { get; set; } = null!;
+        public List<AcademyDestinationRequest> AcademyDestinations { get; set; } = null!;
     }
 
 
