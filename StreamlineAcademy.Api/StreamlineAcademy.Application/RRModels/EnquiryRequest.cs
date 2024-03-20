@@ -15,7 +15,7 @@ namespace StreamlineAcademy.Application.RRModels
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
-        [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "Please Enter Valid Email")]
+        [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "Please enter valid Email")]
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Phone number is required.")]

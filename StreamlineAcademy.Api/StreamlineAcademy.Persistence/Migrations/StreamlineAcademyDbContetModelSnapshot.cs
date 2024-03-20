@@ -22,6 +22,123 @@ namespace StreamlineAcademy.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.Academy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AcademyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("AcademyTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("StateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcademyTypeId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Academies");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.AcademyType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcademyTypes");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid?>("StateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.Country", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("StreamlineAcademy.Domain.Entities.Enquiry", b =>
                 {
                     b.Property<Guid>("Id")
@@ -50,6 +167,29 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Enquiries");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.State", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("StateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("StreamlineAcademy.Domain.Entities.SuperAdmin", b =>
@@ -95,16 +235,61 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("38701b28-7e1d-4c1a-a046-7bd1e4fbcfe8"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 19, 11, 13, 56, 895, DateTimeKind.Unspecified).AddTicks(4894), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("406f9971-19c8-4dde-a8bc-e4da8e4cf17a"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 19, 15, 52, 20, 318, DateTimeKind.Unspecified).AddTicks(2500), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$C0GyQL/Xz0n08Rh9UzTO/OPULZSx1DSdYkT/JoAxIqlhpVvYm7VhC",
+                            Password = "$2a$11$yIH/PINKed/hDMZ9jN1N/u66XaDPRUICnK7q.EgySC3iC4Vdimavu",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$C0GyQL/Xz0n08Rh9UzTO/O",
+                            Salt = "$2a$11$yIH/PINKed/hDMZ9jN1N/u",
                             UserName = "superadmin@123",
                             UserRole = 1
                         });
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.Academy", b =>
+                {
+                    b.HasOne("StreamlineAcademy.Domain.Entities.AcademyType", "AcademyType")
+                        .WithMany()
+                        .HasForeignKey("AcademyTypeId");
+
+                    b.HasOne("StreamlineAcademy.Domain.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("StreamlineAcademy.Domain.Entities.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("StreamlineAcademy.Domain.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+
+                    b.Navigation("AcademyType");
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.City", b =>
+                {
+                    b.HasOne("StreamlineAcademy.Domain.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.State", b =>
+                {
+                    b.HasOne("StreamlineAcademy.Domain.Entities.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,6 +21,14 @@ namespace StreamlineAcademy.Persistence.Data
 
        
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
+        public DbSet<Academy> Academies { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<AcademyType> AcademyTypes { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
