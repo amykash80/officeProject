@@ -25,7 +25,7 @@ namespace StreamlineAcademy.Application.Abstractions.IRepositories
         Task<T> GetByIdAsync(Expression<Func<T,bool>> expression);
 
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression);
-
+        
         #endregion
 
     }

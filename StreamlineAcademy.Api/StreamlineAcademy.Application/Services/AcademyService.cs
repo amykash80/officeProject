@@ -43,15 +43,42 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<AcademyResponse>> Register(AcademyRequest request)
         {
+            var existingAcademy = await academyRepository.GetByIdAsync(x => x.AcademyName == request.AcademyName);
+            if (existingAcademy != null)
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy already registered.");
+
+            var existingEmail = await academyRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
+            if (existingEmail != null)
+            {
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered.");
+            }
 
             var academy = mapper.Map<Academy>(request);
 
             var returnVal = await academyRepository.InsertAsync(academy);
-
+            
             if (returnVal > 0)
              return ApiResponse<AcademyResponse>.SuccessResponse(new AcademyResponse());
              return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong");
             
+        }
+
+        public async Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id)
+        {
+
+            var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
+            if (existingAcademy is null)
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy Not Found");
+
+            var result = await academyRepository.DeleteAsync(existingAcademy);
+            if (result > 0)
+            {
+                var deleteResponse = mapper.Map<AcademyResponse>(existingAcademy);
+                return ApiResponse<AcademyResponse>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
+            }
+
+            return ApiResponse<AcademyResponse>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError);
+
         }
     }
 }
