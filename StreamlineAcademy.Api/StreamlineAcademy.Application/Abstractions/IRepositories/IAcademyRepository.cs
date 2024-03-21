@@ -11,6 +11,7 @@ namespace StreamlineAcademy.Application.Abstractions.IRepositories
     public interface IAcademyRepository:IBaseRepository<Academy>
     {
         Task<IEnumerable<AcademyResponse>> GetallAcademies();
+        Task<AcademyResponse> GetAcademyById(Guid id);
 
     }
 }

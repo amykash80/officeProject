@@ -25,6 +25,14 @@ namespace StreamlineAcademy.Application.Services
             this.mapper = mapper;
         }
 
+        public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id)
+        {
+            if(await academyRepository.GetByIdAsync(x => x.Id == id) is null)
+                return ApiResponse<AcademyResponse>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+
+            return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(await academyRepository.GetAcademyById(id)));
+        }
+
         public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies()
         {
             var returnVal = await academyRepository.GetallAcademies();

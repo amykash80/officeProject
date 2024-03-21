@@ -24,6 +24,30 @@ namespace StreamlineAcademy.Persistence.Repositories
             _connectionString = configuration.GetConnectionString("StreamlineAcademyDbContet")!;
         }
 
+        public async Task<AcademyResponse> GetAcademyById(Guid id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                      SELECT a.Id, a.AcademyName, a.Email, a.PhoneNumber,a.PostalCode,a.Address,at.Name,
+                       c.CountryName, s.StateName, ct.CityName
+                FROM Academies a
+                INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
+                INNER JOIN Countries c ON a.CountryId = c.Id
+                INNER JOIN States s ON a.StateId = s.Id
+                INNER JOIN Cities ct ON a.CityId = ct.Id
+              
+                 WHERE
+                 a.Id = @Id;";
+
+                var returnVal= await connection.QueryFirstOrDefaultAsync<AcademyResponse>(query,new {Id=id});
+                return returnVal!;
+
+
+            }
+        }
 
         public async Task<IEnumerable<AcademyResponse>> GetallAcademies()
         {

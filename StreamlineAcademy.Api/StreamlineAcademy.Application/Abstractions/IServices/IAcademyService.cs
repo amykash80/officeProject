@@ -12,5 +12,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
     {
         Task<ApiResponse<AcademyResponse>> Register(AcademyRequest request);
         Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies();
+
+        Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id);
     }
 }

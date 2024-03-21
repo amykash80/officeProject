@@ -26,5 +26,8 @@ namespace StreamlineAcademy.Api.Controllers
         [HttpGet]
 
         public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies() => await academyService.GetAllAcademies();
+
+        [HttpGet("{id:guid}")]
+        public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id) => await academyService.GetAcademyById(id);
     }
 }
