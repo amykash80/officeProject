@@ -1,4 +1,6 @@
-﻿using StreamlineAcademy.Domain.Entities;
+﻿using StreamlineAcademy.Application.RRModels;
+using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +11,6 @@ namespace StreamlineAcademy.Application.Abstractions.IRepositories
 {
     public interface IAcademyDestinationRepository:IBaseRepository<AcademyDestinations>
     {
+
     }
 }

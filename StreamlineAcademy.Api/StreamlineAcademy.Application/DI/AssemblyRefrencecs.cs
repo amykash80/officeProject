@@ -15,7 +15,7 @@ namespace StreamlineAcademy.Application.DI
     public static class AssemblyRefrencecs
     {
 
-        public static IServiceCollection AddAplicationService(this IServiceCollection services,string WebRootPath   )
+        public static IServiceCollection AddAplicationService(this IServiceCollection services,string WebRootPath )
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IEnquiryService,EnquiryService>();

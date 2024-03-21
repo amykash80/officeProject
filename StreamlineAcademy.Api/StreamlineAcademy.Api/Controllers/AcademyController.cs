@@ -18,9 +18,13 @@ namespace StreamlineAcademy.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResponse<int>> RegisterAcademy(AcademyRegistrationRequest request)
-        {
-           return await academyService.Register(request);
-        }
+
+        public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request) => await academyService.Register(request);
+
+
+
+        [HttpGet]
+
+        public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies() => await academyService.GetAllAcademies();
     }
 }

@@ -26,7 +26,6 @@ namespace StreamlineAcademy.Persistence.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<AcademyType> AcademyTypes { get; set; }
 
-        public DbSet<AcademyDestinations> AcademyDestinations { get; set; }
 
 
 

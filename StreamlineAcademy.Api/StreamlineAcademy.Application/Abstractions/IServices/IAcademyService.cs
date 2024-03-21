@@ -10,6 +10,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
 {
     public interface IAcademyService
     {
-        Task<ApiResponse<int>> Register(AcademyRegistrationRequest request);
+        Task<ApiResponse<AcademyResponse>> Register(AcademyRequest request);
+        Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies();
     }
 }

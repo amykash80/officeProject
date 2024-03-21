@@ -38,27 +38,32 @@ namespace StreamlineAcademy.Application.RRModels
         public String Email { get; set; } = null!;
 
         public Guid AcademyTypeId { get; set; }
-
-       // public IFormFile? Logo { get; set; }
-    }
-
-
-    public class AcademyDestinationRequest
-    {
-
         public Guid CountryId { get; set; }
 
         public Guid StateId { get; set; }
 
         public Guid CityId { get; set; }
+
+
     }
 
-    public class AcademyRegistrationRequest
 
-    {
-        public AcademyRequest AcademyRequest { get; set; } = null!;
-        public List<AcademyDestinationRequest> AcademyDestinations { get; set; } = null!;
-    }
+    //public class AcademyDestinationRequest
+    //{
+
+    //    public Guid CountryId { get; set; }
+
+    //    public Guid StateId { get; set; }
+
+    //    public Guid CityId { get; set; }
+    //}
+
+    //public class AcademyRegistrationRequest
+
+    //{
+    //    public AcademyRequest AcademyRequest { get; set; } = null!;
+    //    public AcademyDestinationRequest AcademyDestinations { get; set; } = null!;
+    //}
 
 
 
@@ -71,11 +76,11 @@ namespace StreamlineAcademy.Application.RRModels
         public string PostalCode { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string? AcademyType { get; set; }
-        public List<Country>? Countries { get; set; }
+        public string AcademyType { get; set; } = null!;
+        public string CountryName { get; set; } = null!;
 
-        public List<State>? State { get; set; }
-        public List<City>? City { get; set; }
+        public string StateName { get; set; } = null!;
+        public string CityName { get; set; } = null!;
         public class AcademyUpdateRequest : AcademyResponse
         {
 

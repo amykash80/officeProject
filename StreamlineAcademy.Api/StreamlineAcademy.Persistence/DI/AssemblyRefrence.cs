@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
+using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Persistence.Data;
 using StreamlineAcademy.Persistence.Repositories;
 using System;

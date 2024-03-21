@@ -24,6 +24,17 @@ namespace StreamlineAcademy.Application.MapperProfiles
 
         }
 
+        public class AcademyProfile : Profile
+        {
+
+            public AcademyProfile()
+            {
+                CreateMap<AcademyRequest, Academy>();
+                CreateMap<Academy, AcademyResponse>();
+            }
+
+        }
+
 
     }
 }

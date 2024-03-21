@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreamlineAcademy.Persistence.Data;
 
@@ -11,9 +12,11 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    partial class StreamlineAcademyDbContetModelSnapshot : ModelSnapshot
+    [Migration("20240321072853_AcademyTable")]
+    partial class AcademyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,13 +238,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("42acb63d-b863-4576-93e9-d17257eca913"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 21, 13, 3, 17, 631, DateTimeKind.Unspecified).AddTicks(4749), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("a034090a-99ab-4f8f-8140-44afc3721b58"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 21, 12, 58, 51, 936, DateTimeKind.Unspecified).AddTicks(7856), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$w2U1zxvyoLIGw4aeWZ/S2.1GMjQkBcDNZkYaYIPR6sjllt/aPBQ2O",
+                            Password = "$2a$11$YH.qvSQZdK/xYUNayPqUweUY9dnaogjKJZJbq7fecyz0GhMNeFUbS",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$w2U1zxvyoLIGw4aeWZ/S2.",
+                            Salt = "$2a$11$YH.qvSQZdK/xYUNayPqUwe",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });

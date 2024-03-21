@@ -1,4 +1,6 @@
-﻿using StreamlineAcademy.Application.Abstractions.IRepositories;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
@@ -14,50 +16,34 @@ namespace StreamlineAcademy.Application.Services
     public class AcademyService : IAcademyService
     {
         private readonly IAcademyRepository academyRepository;
-        private readonly IAcademyDestinationRepository academyDestination;
+        private readonly IMapper mapper;
 
         public AcademyService(IAcademyRepository academyRepository,
-                               IAcademyDestinationRepository academyDestination)
+                               IMapper mapper)
         {
             this.academyRepository = academyRepository;
-            this.academyDestination = academyDestination;
+            this.mapper = mapper;
         }
-        public async Task<ApiResponse<int>> Register(AcademyRegistrationRequest request)
+
+        public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies()
         {
-            Academy academy = new Academy() { 
+            var returnVal = await academyRepository.GetallAcademies();
+            if (returnVal is not null)
+                return ApiResponse<IEnumerable<AcademyResponse>>.SuccessResponse(returnVal,$"Found {returnVal.Count()} Academies");
+                return ApiResponse<IEnumerable<AcademyResponse>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+        }
+
+        public async Task<ApiResponse<AcademyResponse>> Register(AcademyRequest request)
+        {
+
+            var academy = mapper.Map<Academy>(request);
+
+            var returnVal = await academyRepository.InsertAsync(academy);
+
+            if (returnVal > 0)
+             return ApiResponse<AcademyResponse>.SuccessResponse(new AcademyResponse());
+             return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong");
             
-            Name=request.AcademyRequest.Name,
-            AcademyName=request.AcademyRequest.AcademyName,
-            PhoneNumber=request.AcademyRequest.PhoneNumber,
-            PostalCode=request.AcademyRequest.PostalCode,
-            Email=request.AcademyRequest.Email,
-            Address =request.AcademyRequest.Address,
-            AcademyTypeId=request.AcademyRequest.AcademyTypeId
-
-            };
-
-           var returnVal= await academyRepository.InsertAsync(academy);
-            if(returnVal>0)
-            {
-                List<AcademyDestinations> academyDestinations = new List<AcademyDestinations>();
-                foreach (var destination in request.AcademyDestinations)
-                {
-                    academyDestinations.Add(new AcademyDestinations() { 
-                    
-                    AcademyId=academy.Id,
-                    CountryId=destination.CountryId,
-                    StateId=destination.StateId,
-                    CityId=destination.CityId,
-                    });
-
-                }
-
-              var res=  await academyDestination.InsertRangeAsync(academyDestinations);
-                if (res > 0)
-                  return ApiResponse<int>.SuccessResponse(res, "Academy Registered Successfully");
-                 return ApiResponse<int>.ErrorResponse("Something Went Wrong");
-            }
-                 return ApiResponse<int>.ErrorResponse("Something Went Wrong");
         }
     }
 }
