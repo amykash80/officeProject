@@ -63,8 +63,12 @@ namespace StreamlineAcademy.Application.Services
             var returnVal = await academyRepository.InsertAsync(academy);
             
             if (returnVal > 0)
-             return ApiResponse<AcademyResponse>.SuccessResponse(new AcademyResponse());
-             return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong");
+            {
+                var result=await academyRepository.GetAcademyById(academy.Id);
+                return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+
+            }
+            return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong",HttpStatusCodes.BadRequest);
             
         }
 
