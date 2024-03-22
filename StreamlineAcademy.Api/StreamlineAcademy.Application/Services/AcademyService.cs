@@ -82,8 +82,9 @@ namespace StreamlineAcademy.Application.Services
             var result = await academyRepository.DeleteAsync(existingAcademy);
             if (result > 0)
             {
-                var deleteResponse = mapper.Map<AcademyResponse>(existingAcademy);
-                return ApiResponse<AcademyResponse>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
+
+                var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
+                return ApiResponse<AcademyResponse>.SuccessResponse(returnVal, "Enquiry Deleted Successfullly");
             }
 
             return ApiResponse<AcademyResponse>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError);

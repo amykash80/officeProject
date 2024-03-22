@@ -40,7 +40,6 @@ namespace StreamlineAcademy.Application.RRModels
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; } = null!;
 
-        public string Salt { get; set; } = null!;
 
         [Required(ErrorMessage = "Academy Type Id is required")]
 
@@ -67,7 +66,7 @@ namespace StreamlineAcademy.Application.RRModels
     public class AcademyResponse
     {
         public Guid Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string AcademyAdmin { get; set; } = null!;
         public string AcademyName { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string PostalCode { get; set; } = null!;

@@ -31,7 +31,7 @@ namespace StreamlineAcademy.Persistence.Repositories
                 connection.Open();
 
                 string query = @"
-                      SELECT a.Id, a.AcademyName, a.Email, a.PhoneNumber,a.PostalCode,a.Address,at.Name as AcademyType,
+                      SELECT a.Id, a.AcademyName, a.Email,a.Name as AcademyAdmin, a.PhoneNumber,a.PostalCode,a.Address,at.Name as AcademyType,
                        c.CountryName, s.StateName, ct.CityName
                 FROM Academies a
                 INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
@@ -58,7 +58,7 @@ namespace StreamlineAcademy.Persistence.Repositories
                 connection.Open();
 
                 string query = @"
-                SELECT a.AcademyName, a.Email, a.PhoneNumber,a.PostalCode,a.Id,a.Address,at.Name as AcademyType,
+                SELECT a.AcademyName, a.Email, a.PhoneNumber,a.Name as AcademyAdmin ,a.PostalCode,a.Id,a.Address,at.Name as AcademyType,
                        c.CountryName, s.StateName, ct.CityName
                 FROM Academies a
                 INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
