@@ -40,7 +40,7 @@ namespace StreamlineAcademy.Application.Services
         {
             var returnVal = await academyRepository.GetallAcademies();
             if (returnVal is not null)
-                return ApiResponse<IEnumerable<AcademyResponse>>.SuccessResponse(returnVal,$"Found {returnVal.Count()} Academies");
+                return ApiResponse<IEnumerable<AcademyResponse>>.SuccessResponse(returnVal.OrderBy(_=>_.AcademyName),$"Found {returnVal.Count()} Academies");
                 return ApiResponse<IEnumerable<AcademyResponse>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
         }
 

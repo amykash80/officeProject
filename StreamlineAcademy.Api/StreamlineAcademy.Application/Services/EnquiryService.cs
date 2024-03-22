@@ -82,7 +82,7 @@ namespace StreamlineAcademy.Application.Services
         {
             var enquiryList = await enquiryrepository.GetAllAsync();
             if(enquiryList.Any())
-                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList.OrderBy(x=>x.Name)));
+                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList.OrderBy(x=>x.Name)),$"Found {enquiryList.Count()} Enquiries");
                 return ApiResponse<IEnumerable<EnquiryResponse>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
         }
 
