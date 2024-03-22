@@ -46,16 +46,15 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request)
         {
+
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.AcademyName == request.AcademyName);
-            if (existingAcademy != null)
+            if (existingAcademy is not  null)
                 return ApiResponse<AcademyResponse>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict);
 
             var existingEmail = await academyRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
-            if (existingEmail != null)
-            {
-                return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict);
-            }
-
+            if (existingEmail is not null)
+              return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict);
+            
             var academy = mapper.Map<Academy>(request);
             academy.Salt = AppEncryption.GenerateSalt();
             academy.Password=AppEncryption.HashPassword(request.Password,academy.Salt);
@@ -74,7 +73,7 @@ namespace StreamlineAcademy.Application.Services
 
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (existingAcademy is null)
-                return ApiResponse<AcademyResponse>.ErrorResponse("Academy Not Found");
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy Not Found",HttpStatusCodes.NotFound);
 
             var result = await academyRepository.DeleteAsync(existingAcademy);
             if (result > 0)
