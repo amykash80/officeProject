@@ -18,5 +18,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
         Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries();
 
         Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id);
+
+        Task<bool> UpdateEnquiryStatus(string email);
     }
 }

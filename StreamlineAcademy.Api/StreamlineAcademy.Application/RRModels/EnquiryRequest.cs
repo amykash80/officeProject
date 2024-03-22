@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamlineAcademy.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace StreamlineAcademy.Application.RRModels
     public class EnquiryResponse:EnquiryRequest // to send response to clint
     {
         public Guid Id { get; set; }
+        public RegistrationStatus RegistrationStatus { get; set; }  
         
     }
 

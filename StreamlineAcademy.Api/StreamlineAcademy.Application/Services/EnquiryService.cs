@@ -4,6 +4,7 @@ using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,18 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry Not Found");
 
             return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
+        }
+
+        public async Task<bool> UpdateEnquiryStatus(string email)
+        {
+            var result = await enquiryrepository.FirstOrDefaultAsync(x => x.Email == email && x.RegistrationStatus == RegistrationStatus.Pending);
+            if (result is not null)
+            {
+                result.RegistrationStatus = RegistrationStatus.Approved;
+                await enquiryrepository.UpdateAsync(result);
+                return true;
+            }
+            return false;
         }
     }
 }
