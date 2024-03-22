@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Domain.Enums;
 using System.Runtime.InteropServices;
 
 namespace StreamlineAcademy.Api.Controllers
@@ -19,7 +21,6 @@ namespace StreamlineAcademy.Api.Controllers
         }
 
         [HttpPost]
-
         public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request) => await academyService.RegisterAcademy(request);
 
 

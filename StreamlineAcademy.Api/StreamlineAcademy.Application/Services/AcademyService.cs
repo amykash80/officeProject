@@ -44,6 +44,7 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<IEnumerable<AcademyResponse>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
         }
 
+
         public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request)
         {
 
