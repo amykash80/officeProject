@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
+using StreamlineAcademy.Application.Services;
 using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Domain.Enums;
 using System.Runtime.InteropServices;
+using static StreamlineAcademy.Application.RRModels.AcademyResponse;
 
 namespace StreamlineAcademy.Api.Controllers
 {
@@ -34,5 +36,8 @@ namespace StreamlineAcademy.Api.Controllers
 
         [HttpDelete("{id:guid}")]
         public async Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id) => await academyService.DeleteAcademy(id);
+
+        [HttpPut]
+        public async Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest model) => await academyService.UpdateAcademy(model);
     }
 }
