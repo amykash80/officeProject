@@ -1,4 +1,5 @@
-﻿using StreamlineAcademy.Domain.Shared;
+﻿using StreamlineAcademy.Domain.Enums;
+using StreamlineAcademy.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,8 @@ namespace StreamlineAcademy.Domain.Entities
 
         
         public string PhoneNumber { get; set; } = null!;
+
+        public RegistrationStatus RegistrationStatus { get; set; }=RegistrationStatus.Pending;
 
     }
 }
