@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
+using System.Runtime.InteropServices;
 
 namespace StreamlineAcademy.Api.Controllers
 {
@@ -29,5 +30,8 @@ namespace StreamlineAcademy.Api.Controllers
 
         [HttpGet("{id:guid}")]
         public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id) => await academyService.GetAcademyById(id);
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id) => await academyService.DeleteAcademy(id);
     }
 }
