@@ -4,12 +4,15 @@ using Microsoft.Extensions.Configuration;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Enums;
 using StreamlineAcademy.Persistence.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StreamlineAcademy.Persistence.Repositories
 {
@@ -29,7 +32,7 @@ namespace StreamlineAcademy.Persistence.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
+                
                 string query = @"
                       SELECT a.Id, a.AcademyName, a.Email,a.Name as AcademyAdmin, a.PhoneNumber,a.PostalCode,a.Address,at.Name as AcademyType,
                        c.CountryName, s.StateName, ct.CityName
@@ -72,5 +75,24 @@ namespace StreamlineAcademy.Persistence.Repositories
             }
 
         }
+
+        public async Task<bool> UpdateRegistrationStatus(Guid id, RegistrationStatus status)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+
+
+            string sql = @"UPDATE Enquiries
+                        SET RegistrationStatus = @Status
+                         WHERE Id = @id";
+
+            int rowsAffected = await connection.ExecuteAsync(sql, new { Id = id, Status = status });
+
+            return rowsAffected > 0;
+
+            }
+
+        }
+
     }
 }

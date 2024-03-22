@@ -67,15 +67,11 @@ namespace StreamlineAcademy.Application.Services
             
             if (returnVal > 0)
             {
-               var updateStatusResponse = await enquiryService.UpdateEnquiryStatus(academy.Email);
-                if(updateStatusResponse)
-                {
-                    //await enquiryService.UpdateEnquiry(academy.Email,RegistrationStatus.Approved);
-                    var result = await academyRepository.GetAcademyById(academy.Id);
-                    return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
-                }
-                
-
+                //var updateStatusResponse = await enquiryService.UpdateEnquiryStatus(academy.Email);
+                var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
+                var result = await academyRepository.GetAcademyById(academy.Id);
+                return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+              
             }
             return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong",HttpStatusCodes.BadRequest);
             

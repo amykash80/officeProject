@@ -95,16 +95,6 @@ namespace StreamlineAcademy.Application.Services
             return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
         }
 
-        public async Task<bool> UpdateEnquiryStatus(string email)
-        {
-            var result = await enquiryrepository.FirstOrDefaultAsync(x => x.Email == email && x.RegistrationStatus == RegistrationStatus.Pending);
-            if (result is not null)
-            {
-                result.RegistrationStatus = RegistrationStatus.Approved;
-                await enquiryrepository.UpdateAsync(result);
-                return true;
-            }
-            return false;
-        }
+       
     }
 }
