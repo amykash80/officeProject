@@ -20,12 +20,14 @@ namespace StreamlineAcademy.Application.Services
     {
         private readonly IAcademyRepository academyRepository;
         private readonly IMapper mapper;
+        private readonly IEnquiryService enquiryService;
 
         public AcademyService(IAcademyRepository academyRepository,
-                               IMapper mapper)
+                               IMapper mapper ,IEnquiryService enquiryService)
         {
             this.academyRepository = academyRepository;
             this.mapper = mapper;
+            this.enquiryService = enquiryService;
         }
 
         public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id)
@@ -64,8 +66,14 @@ namespace StreamlineAcademy.Application.Services
             
             if (returnVal > 0)
             {
-                var result=await academyRepository.GetAcademyById(academy.Id);
-                return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+               var updateStatusResponse = await enquiryService.UpdateEnquiryStatus(academy.Email);
+                if(updateStatusResponse)
+                {
+                    //await enquiryService.UpdateEnquiry(academy.Email,RegistrationStatus.Approved);
+                    var result = await academyRepository.GetAcademyById(academy.Id);
+                    return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+                }
+                
 
             }
             return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong",HttpStatusCodes.BadRequest);

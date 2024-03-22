@@ -16,5 +16,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
         Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id);
 
         Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id);
+        
+       
     }
 }
