@@ -23,7 +23,7 @@ namespace StreamlineAcademy.Domain.Entities
 
         public string PhoneNumber { get; set; }=null!;
 
-        public Enums.Enums UserRole { get; set; }
+        public UserRole UserRole { get; set; }
 
     }
 }

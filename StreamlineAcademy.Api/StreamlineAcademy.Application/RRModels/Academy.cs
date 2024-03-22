@@ -30,40 +30,37 @@ namespace StreamlineAcademy.Application.RRModels
 
         [Required(ErrorMessage = "PhoneNumber is required")]
         [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "please enter valid phone number ")]
-        public String PhoneNumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "Please enter valid Email")]
-        public String Email { get; set; } = null!;
+        public string Email { get; set; } = null!;
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; } = null!;
+
+        public string Salt { get; set; } = null!;
+
+        [Required(ErrorMessage = "Academy Type Id is required")]
 
         public Guid AcademyTypeId { get; set; }
+
+        [Required(ErrorMessage = "Country  Id is required")]
+
         public Guid CountryId { get; set; }
 
+        [Required(ErrorMessage = "State  Id is required")]
+
         public Guid StateId { get; set; }
+
+        [Required(ErrorMessage = "City  Id is required")]
 
         public Guid CityId { get; set; }
 
 
     }
 
-
-    //public class AcademyDestinationRequest
-    //{
-
-    //    public Guid CountryId { get; set; }
-
-    //    public Guid StateId { get; set; }
-
-    //    public Guid CityId { get; set; }
-    //}
-
-    //public class AcademyRegistrationRequest
-
-    //{
-    //    public AcademyRequest AcademyRequest { get; set; } = null!;
-    //    public AcademyDestinationRequest AcademyDestinations { get; set; } = null!;
-    //}
 
 
 

@@ -4,7 +4,10 @@ using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Application.Utils;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,19 +44,22 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<IEnumerable<AcademyResponse>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
         }
 
-        public async Task<ApiResponse<AcademyResponse>> Register(AcademyRequest request)
+        public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request)
         {
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.AcademyName == request.AcademyName);
             if (existingAcademy != null)
-                return ApiResponse<AcademyResponse>.ErrorResponse("Academy already registered.");
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict);
 
             var existingEmail = await academyRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (existingEmail != null)
             {
-                return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered.");
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict);
             }
 
             var academy = mapper.Map<Academy>(request);
+            academy.Salt = AppEncryption.GenerateSalt();
+            academy.Password=AppEncryption.HashPassword(request.Password,academy.Salt);
+            academy.UserRole = UserRole.AcademyAdmin;
 
             var returnVal = await academyRepository.InsertAsync(academy);
             

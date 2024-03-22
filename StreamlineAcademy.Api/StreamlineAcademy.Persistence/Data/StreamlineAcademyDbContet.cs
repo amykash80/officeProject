@@ -46,7 +46,7 @@ namespace StreamlineAcademy.Persistence.Data
                     Salt = Passwordsalt,
                     Password = AppEncryption.HashPassword("superadmin", Passwordsalt),
                     PhoneNumber = "7267636376",
-                    UserRole = Enums.SuperAdmin,
+                    UserRole = UserRole.SuperAdmin,
                    CreatedOn = DateTime.Now,
 
                 }
