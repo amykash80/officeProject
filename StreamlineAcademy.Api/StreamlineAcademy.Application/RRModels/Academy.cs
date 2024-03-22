@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -77,6 +78,8 @@ namespace StreamlineAcademy.Application.RRModels
 
         public string StateName { get; set; } = null!;
         public string CityName { get; set; } = null!;
+
+        public UserRole UserRole { get; set; }
         public class AcademyUpdateRequest : AcademyResponse
         {
 

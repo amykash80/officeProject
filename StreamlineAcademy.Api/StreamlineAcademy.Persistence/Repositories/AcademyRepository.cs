@@ -26,6 +26,7 @@ namespace StreamlineAcademy.Persistence.Repositories
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("StreamlineAcademyDbContet")!;
         }
+        #region dapper methods
 
         public async Task<AcademyResponse> GetAcademyById(Guid id)
         {
@@ -62,7 +63,7 @@ namespace StreamlineAcademy.Persistence.Repositories
 
                 string query = @"
                 SELECT a.AcademyName, a.Email, a.PhoneNumber,a.Name as AcademyAdmin ,a.PostalCode,a.Id,a.Address,at.Name as AcademyType,
-                       c.CountryName, s.StateName, ct.CityName
+                       c.CountryName, s.StateName, ct.CityName,a.UserRole
                 FROM Academies a
                 INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
                 INNER JOIN Countries c ON a.CountryId = c.Id
@@ -94,5 +95,6 @@ namespace StreamlineAcademy.Persistence.Repositories
 
         }
 
+        #endregion
     }
 }
