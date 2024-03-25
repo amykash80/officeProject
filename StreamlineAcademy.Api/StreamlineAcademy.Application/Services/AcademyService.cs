@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static StreamlineAcademy.Application.RRModels.AcademyResponse;
 
 namespace StreamlineAcademy.Application.Services
 {
@@ -67,7 +68,7 @@ namespace StreamlineAcademy.Application.Services
             
             if (returnVal > 0)
             {
-                //var updateStatusResponse = await enquiryService.UpdateEnquiryStatus(academy.Email);
+                
                 var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                 var result = await academyRepository.GetAcademyById(academy.Id);
                 return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
@@ -94,6 +95,21 @@ namespace StreamlineAcademy.Application.Services
 
             return ApiResponse<AcademyResponse>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError);
 
+        }
+
+        
+
+        public async Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest request)
+        {
+            var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
+            if (existAcademy is null)
+                return ApiResponse<AcademyResponse>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
+
+            var academy = mapper.Map(request, existAcademy);
+            var updateAcademy = await academyRepository.UpdateAsync(existAcademy);
+            if (updateAcademy is > 0)
+                return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(academy), "Academy Updated Successfullly");
+            return ApiResponse<AcademyResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static StreamlineAcademy.Application.RRModels.AcademyResponse;
 
 namespace StreamlineAcademy.Application.Abstractions.IServices
 {
@@ -16,6 +17,8 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
         Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id);
 
         Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id);
+
+        Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest request);
         
        
     }
