@@ -30,14 +30,14 @@ namespace StreamlineAcademy.Persistence.Migrations
 
                     b.Property<string>("AcademyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("AcademyTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CityId")
                         .HasColumnType("uniqueidentifier");
@@ -50,11 +50,11 @@ namespace StreamlineAcademy.Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -62,7 +62,7 @@ namespace StreamlineAcademy.Persistence.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
@@ -80,11 +80,21 @@ namespace StreamlineAcademy.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AcademyName");
+
                     b.HasIndex("AcademyTypeId");
+
+                    b.HasIndex("Address");
 
                     b.HasIndex("CityId");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("Email");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("PhoneNumber");
 
                     b.HasIndex("StateId");
 
@@ -249,13 +259,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("26189a26-9dba-4623-8bea-e6a04358fc10"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 22, 11, 32, 47, 115, DateTimeKind.Unspecified).AddTicks(6421), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("189af09c-b3f7-4427-9568-2fa67ed51e8f"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 25, 10, 50, 32, 4, DateTimeKind.Unspecified).AddTicks(3983), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$xMzXpD.xM61uOSfBiuG2weO82oo4p9SXfIzD9x8B2fKY.6Ln2AzwC",
+                            Password = "$2a$11$MICjwzv3EWBKTByRHtogxOAPNNuZBcRt.PVTfMFR8BD8hCOegqdkK",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$xMzXpD.xM61uOSfBiuG2we",
+                            Salt = "$2a$11$MICjwzv3EWBKTByRHtogxO",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });
