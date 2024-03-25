@@ -41,6 +41,14 @@ namespace StreamlineAcademy.Api.Controllers
 
         public async Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id) => await enquiryService.GetEnquiryById(id);
 
+        [HttpGet("check-enquiryemail/{enquiryEmail}")]
+
+        public async Task<IResult> IsAcademyEmailUnique(string enquiryEmail)
+        {
+            var isUnique = await enquiryService.IsEnquiryEmailUnique(enquiryEmail);
+            return Results.Ok(isUnique);
+        }
+
 
     }
 }
