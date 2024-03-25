@@ -34,44 +34,14 @@ namespace StreamlineAcademy.Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            ConfigureIndex(modelBuilder);
-            SetData(modelBuilder);
-            
+            modelBuilder.ConfigureIndexesAndData();
+
         }
 
-        private void ConfigureIndex(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Enquiry>().HasIndex(x => x.Name);
-            modelBuilder.Entity<Enquiry>().HasIndex(x => x.Email);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Name);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.AcademyName);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Address);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.PhoneNumber);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Email);
-        }
+        
 
 
-        private void SetData(ModelBuilder modelBuilder)
-        {
-            var Passwordsalt = AppEncryption.GenerateSalt();
-            modelBuilder.Entity<SuperAdmin>().HasData(
-
-                    new SuperAdmin()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ram",
-                        Email = "ram@gmail.com",
-                        UserName = "superadmin@123",
-                        Salt = Passwordsalt,
-                        Password = AppEncryption.HashPassword("superadmin", Passwordsalt),
-                        PhoneNumber = "7267636376",
-                        UserRole = UserRole.SuperAdmin,
-                        CreatedOn = DateTime.Now,
-
-                    }
-
-            );
-        }
+        
         
     }
 }
