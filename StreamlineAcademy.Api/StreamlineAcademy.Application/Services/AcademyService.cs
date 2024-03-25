@@ -111,5 +111,16 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(academy), "Academy Updated Successfullly");
             return ApiResponse<AcademyResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
         }
+
+        public async Task<bool> IsAcademyNameUnique(string name)
+        {
+            return await academyRepository.FirstOrDefaultAsync(x => x.AcademyName == name) == null;
+
+        }
+
+        public async Task<bool> IsAcademyEmailUnique(string email)
+        {
+            return await academyRepository.FirstOrDefaultAsync(x => x.Email == email) == null;
+        }
     }
 }

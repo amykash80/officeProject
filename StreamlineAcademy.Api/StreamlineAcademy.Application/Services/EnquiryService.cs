@@ -95,6 +95,9 @@ namespace StreamlineAcademy.Application.Services
             return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
         }
 
-       
+        public async Task<bool> IsEnquiryEmailUnique(string email)
+        {
+            return await enquiryrepository.FirstOrDefaultAsync(x => x.Email == email) == null;
+        }
     }
 }

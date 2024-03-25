@@ -19,5 +19,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
 
         Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id);
 
+        Task<bool> IsEnquiryEmailUnique(string email);
+
     }
 }

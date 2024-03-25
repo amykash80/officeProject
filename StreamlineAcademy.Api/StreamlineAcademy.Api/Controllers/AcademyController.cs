@@ -25,10 +25,7 @@ namespace StreamlineAcademy.Api.Controllers
         [HttpPost]
         public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request) => await academyService.RegisterAcademy(request);
 
-
-
         [HttpGet]
-
         public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies() => await academyService.GetAllAcademies();
 
         [HttpGet("{id:guid}")]
@@ -39,5 +36,21 @@ namespace StreamlineAcademy.Api.Controllers
 
         [HttpPut]
         public async Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest model) => await academyService.UpdateAcademy(model);
+
+        [HttpGet("check-academyname/{academyName}")]
+
+        public async Task<IResult> IsAcadeyNameUnique(string academyName)
+        {
+           var isUnique= await academyService.IsAcademyNameUnique(academyName);
+            return Results.Ok(isUnique);
+        }
+
+        [HttpGet("check-academyemail/{academyEmail}")]
+
+        public async Task<IResult> IsAcademyEmailUnique(string academyEmail)
+        {
+            var isUnique = await academyService.IsAcademyEmailUnique(academyEmail);
+            return Results.Ok(isUnique);
+        }
     }
 }
