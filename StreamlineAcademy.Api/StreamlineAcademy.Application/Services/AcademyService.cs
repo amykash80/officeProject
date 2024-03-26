@@ -84,10 +84,10 @@ namespace StreamlineAcademy.Application.Services
 
                 }
 
-                return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong", HttpStatusCodes.BadRequest);
+                return ApiResponse<AcademyResponse>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest);
 
             }
-            return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong", HttpStatusCodes.BadRequest);
+            return ApiResponse<AcademyResponse>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest);
 
 
 
