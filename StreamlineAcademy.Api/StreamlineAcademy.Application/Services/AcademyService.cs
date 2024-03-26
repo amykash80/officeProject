@@ -21,13 +21,17 @@ namespace StreamlineAcademy.Application.Services
     {
         private readonly IAcademyRepository academyRepository;
         private readonly IMapper mapper;
+        private readonly IUserRepository userRepository;
         private readonly IEnquiryService enquiryService;
 
         public AcademyService(IAcademyRepository academyRepository,
-                               IMapper mapper ,IEnquiryService enquiryService)
+                               IMapper mapper ,
+                               IUserRepository userRepository ,
+                               IEnquiryService enquiryService)
         {
             this.academyRepository = academyRepository;
             this.mapper = mapper;
+            this.userRepository = userRepository;
             this.enquiryService = enquiryService;
         }
 
@@ -55,27 +59,38 @@ namespace StreamlineAcademy.Application.Services
             if (existingAcademy is not  null)
                 return ApiResponse<AcademyResponse>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict);
 
-            var existingEmail = await academyRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
+            var existingEmail = await userRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (existingEmail is not null)
-              return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict);
-            
-            var academy = mapper.Map<Academy>(request);
-            academy.Salt = AppEncryption.GenerateSalt();
-            academy.Password=AppEncryption.HashPassword(request.Password,academy.Salt);
-            academy.UserRole = UserRole.AcademyAdmin;
+              return ApiResponse<AcademyResponse>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict); 
 
-            var returnVal = await academyRepository.InsertAsync(academy);
+            var user = mapper.Map<User>(request);
+            user.Salt = AppEncryption.GenerateSalt();
+            user.Password = AppEncryption.HashPassword(request.Password, user.Salt);
+            user.UserRole = UserRole.AcademyAdmin;
+
+
+            var returnVal = await userRepository.InsertAsync(user);
             
             if (returnVal > 0)
             {
-                
-                var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
-                var result = await academyRepository.GetAcademyById(academy.Id);
-                return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
-              
+                var academy=mapper.Map<Academy>(request);
+                academy.Id = user.Id;
+                var result = await academyRepository.InsertAsync(academy);
+                if (result > 0)
+                {
+                    var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
+                    var res = await academyRepository.GetAcademyById(academy.Id);
+                    return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+
+                }
+
+                return ApiResponse<AcademyResponse>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest);
+
             }
-            return ApiResponse<AcademyResponse>.ErrorResponse("Somethoing went Wrong",HttpStatusCodes.BadRequest);
-            
+            return ApiResponse<AcademyResponse>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest);
+
+
+
         }
 
         public async Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id)
@@ -118,9 +133,11 @@ namespace StreamlineAcademy.Application.Services
 
         }
 
+
         public async Task<bool> IsAcademyEmailUnique(string email)
         {
-            return await academyRepository.FirstOrDefaultAsync(x => x.Email == email) == null;
+            return await userRepository.FirstOrDefaultAsync(x => x.Email == email) == null;
+
         }
     }
 }

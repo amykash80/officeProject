@@ -16,11 +16,7 @@ namespace StreamlineAcademy.Persistence.Data
         {
             modelBuilder.Entity<Enquiry>().HasIndex(x => x.Name);
             modelBuilder.Entity<Enquiry>().HasIndex(x => x.Email);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Name);
             modelBuilder.Entity<Academy>().HasIndex(x => x.AcademyName);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Address);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.PhoneNumber);
-            modelBuilder.Entity<Academy>().HasIndex(x => x.Email);
         }
 
         private static void SetData(ModelBuilder modelBuilder)

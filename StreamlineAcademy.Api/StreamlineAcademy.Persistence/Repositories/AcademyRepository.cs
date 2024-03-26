@@ -33,18 +33,19 @@ namespace StreamlineAcademy.Persistence.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                
+
                 string query = @"
-                      SELECT a.Id, a.AcademyName, a.Email,a.Name as AcademyAdmin, a.PhoneNumber,a.PostalCode,a.Address,at.Name as AcademyType,
-                       c.CountryName, s.StateName, ct.CityName
+                SELECT a.Id, a.AcademyName, U.Email, U.PhoneNumber,U.Name as AcademyAdmin ,U.PostalCode,U.Address,at.Name as AcademyType,
+                       c.CountryName, s.StateName, ct.CityName,U.UserRole
                 FROM Academies a
+                INNER JOIN Users U ON a.Id=U.Id
                 INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
                 INNER JOIN Countries c ON a.CountryId = c.Id
                 INNER JOIN States s ON a.StateId = s.Id
                 INNER JOIN Cities ct ON a.CityId = ct.Id
-              
-                 WHERE
-                 a.Id = @Id;";
+
+                WHERE
+                 a.Id = @Id";
 
                 var returnVal= await connection.QueryFirstOrDefaultAsync<AcademyResponse>(query,new {Id=id});
                 return returnVal!;
@@ -62,9 +63,10 @@ namespace StreamlineAcademy.Persistence.Repositories
                 connection.Open();
 
                 string query = @"
-                SELECT a.AcademyName, a.Email, a.PhoneNumber,a.Name as AcademyAdmin ,a.PostalCode,a.Id,a.Address,at.Name as AcademyType,
-                       c.CountryName, s.StateName, ct.CityName,a.UserRole
+                SELECT a.Id, a.AcademyName, U.Email, U.PhoneNumber,U.Name as AcademyAdmin ,U.PostalCode,U.Address,at.Name as AcademyType,
+                       c.CountryName, s.StateName, ct.CityName,U.UserRole
                 FROM Academies a
+                INNER JOIN Users U ON a.Id=U.Id
                 INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
                 INNER JOIN Countries c ON a.CountryId = c.Id
                 INNER JOIN States s ON a.StateId = s.Id

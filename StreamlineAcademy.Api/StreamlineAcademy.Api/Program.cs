@@ -1,4 +1,5 @@
 using StreamlineAcademy.Application.DI;
+using StreamlineAcademy.Infrastructure.DI;
 using StreamlineAcademy.Persistence.DI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,8 @@ builder.Services.AddSwaggerGen();
 
 // Adding Services added inside AddPersistenceService Etension Method
 builder.Services.AddPersistenceService(builder.Configuration)
-               .AddAplicationService(builder.Environment.WebRootPath);
+               .AddAplicationService(builder.Environment.WebRootPath)
+               .AddInfrastructureService();
 
 var app = builder.Build();
 
@@ -24,6 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

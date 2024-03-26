@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreamlineAcademy.Persistence.Data;
 
@@ -11,9 +12,11 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    partial class StreamlineAcademyDbContetModelSnapshot : ModelSnapshot
+    [Migration("20240326042905_nullabe")]
+    partial class nullabe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,13 +222,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ccdb541-6584-4ec5-9ca6-6c561d11f24f"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 38, 861, DateTimeKind.Unspecified).AddTicks(1254), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("59d6b316-1ba8-46a4-a247-2bd5ef7940ce"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 5, 536, DateTimeKind.Unspecified).AddTicks(4800), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$kQ0wDagNBP.DmokJ8af9Auhlqwtl0JU.BnVB.EdWditXCLVnqJTcC",
+                            Password = "$2a$11$Y2IjklB2fMwUCfSgNbhaBeRCF2tuImQNm86B4VsXeu0ctJm8hdnsu",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$kQ0wDagNBP.DmokJ8af9Au",
+                            Salt = "$2a$11$Y2IjklB2fMwUCfSgNbhaBe",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });
@@ -265,6 +268,7 @@ namespace StreamlineAcademy.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResetCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")

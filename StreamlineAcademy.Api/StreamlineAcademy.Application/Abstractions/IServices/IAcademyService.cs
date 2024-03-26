@@ -22,8 +22,8 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
 
         Task<bool> IsAcademyNameUnique (string name);
 
-        Task<bool> IsAcademyEmailUnique (string email);
-        
-       
+        Task<bool> IsAcademyEmailUnique(string email);
+
+
     }
 }

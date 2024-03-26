@@ -18,10 +18,10 @@ namespace StreamlineAcademy.Persistence.Data
            
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Enquiry> Enquiries { get; set; }
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
         public DbSet<Academy> Academies { get; set; }
-
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
