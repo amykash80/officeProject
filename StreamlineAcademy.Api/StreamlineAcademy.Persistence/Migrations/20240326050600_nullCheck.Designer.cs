@@ -12,8 +12,8 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    [Migration("20240326042939_nullabeReset")]
-    partial class nullabeReset
+    [Migration("20240326050600_nullCheck")]
+    partial class nullCheck
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,13 +222,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ccdb541-6584-4ec5-9ca6-6c561d11f24f"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 38, 861, DateTimeKind.Unspecified).AddTicks(1254), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("20f444a0-e430-4f50-9d55-8a401ccdf805"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 10, 36, 0, 195, DateTimeKind.Unspecified).AddTicks(4656), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$kQ0wDagNBP.DmokJ8af9Auhlqwtl0JU.BnVB.EdWditXCLVnqJTcC",
+                            Password = "$2a$11$tU5Q4U8doZiElvi.Tk9Lh.uKv5vQSIEGlZBsSZsN/19G0CdyAi99K",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$kQ0wDagNBP.DmokJ8af9Au",
+                            Salt = "$2a$11$tU5Q4U8doZiElvi.Tk9Lh.",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });

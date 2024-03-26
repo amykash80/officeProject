@@ -219,13 +219,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ccdb541-6584-4ec5-9ca6-6c561d11f24f"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 38, 861, DateTimeKind.Unspecified).AddTicks(1254), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("55ff487f-416b-4d86-9312-53978cea52f4"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 10, 55, 49, 334, DateTimeKind.Unspecified).AddTicks(3065), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$kQ0wDagNBP.DmokJ8af9Auhlqwtl0JU.BnVB.EdWditXCLVnqJTcC",
+                            Password = "$2a$11$zsMgAxd24yrqbAKeC/gORe8E0poE0ThHXbQrbGTPPY98rU4dzRHrO",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$kQ0wDagNBP.DmokJ8af9Au",
+                            Salt = "$2a$11$zsMgAxd24yrqbAKeC/gORe",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });
