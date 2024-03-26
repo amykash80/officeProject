@@ -22,7 +22,11 @@ namespace StreamlineAcademy.Persistence.DI
             services.AddScoped<IEnquiryRepository, EnquiryRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IAcademyRepository, AcademyRepository>();
+<<<<<<< Updated upstream
             services.AddScoped<IUserRepository, UserRepository>();
+=======
+            services.AddScoped<IAuthRepository, AuthRepository>();
+>>>>>>> Stashed changes
             
             return services;
         }

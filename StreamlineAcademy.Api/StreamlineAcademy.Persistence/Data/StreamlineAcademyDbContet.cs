@@ -30,7 +30,6 @@ namespace StreamlineAcademy.Persistence.Data
 
 
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
