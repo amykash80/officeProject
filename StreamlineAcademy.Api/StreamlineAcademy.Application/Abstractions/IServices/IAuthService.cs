@@ -12,5 +12,7 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
     {
 
         Task<ApiResponse<LoginResponse>> Login(LoginRequest request);
+        Task<ApiResponse<string>> ChangePassword(ChangePasswordRequest model);
+
     }
 }
