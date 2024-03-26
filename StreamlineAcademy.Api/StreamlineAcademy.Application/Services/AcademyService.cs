@@ -80,7 +80,7 @@ namespace StreamlineAcademy.Application.Services
                 {
                     var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                     var res = await academyRepository.GetAcademyById(academy.Id);
-                    return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(result));
+                    return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(res));
 
                 }
 

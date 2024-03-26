@@ -36,6 +36,17 @@ namespace StreamlineAcademy.Application.MapperProfiles
 
         }
 
+        public class LoginProfile : Profile
+        {
+
+            public LoginProfile()
+            {
+                CreateMap<LoginRequest, User>();
+                CreateMap<User, LoginResponse>();
+            }
+
+        }
+
 
     }
 }

@@ -12,8 +12,8 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    [Migration("20240326042905_nullabe")]
-    partial class nullabe
+    [Migration("20240326052550_ResetExpirabe")]
+    partial class ResetExpirabe
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,13 +222,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("59d6b316-1ba8-46a4-a247-2bd5ef7940ce"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 5, 536, DateTimeKind.Unspecified).AddTicks(4800), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("55ff487f-416b-4d86-9312-53978cea52f4"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 10, 55, 49, 334, DateTimeKind.Unspecified).AddTicks(3065), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$Y2IjklB2fMwUCfSgNbhaBeRCF2tuImQNm86B4VsXeu0ctJm8hdnsu",
+                            Password = "$2a$11$zsMgAxd24yrqbAKeC/gORe8E0poE0ThHXbQrbGTPPY98rU4dzRHrO",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$Y2IjklB2fMwUCfSgNbhaBe",
+                            Salt = "$2a$11$zsMgAxd24yrqbAKeC/gORe",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });
@@ -268,7 +268,6 @@ namespace StreamlineAcademy.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResetCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
