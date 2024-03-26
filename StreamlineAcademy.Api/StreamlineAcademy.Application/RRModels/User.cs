@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamlineAcademy.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,6 +33,40 @@ namespace StreamlineAcademy.Application.RRModels
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; } = null!;
+
+    }
+
+    public class LoginRequest
+    {
+
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; } = null!;
+
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; } = null!;
+    }
+
+    public class LoginResponse
+    {
+        public string FullName { get; set; } = null!;
+        public UserRole UserRole { get; set; }
+        public string Token { get; set; } = null!;
+    }
+
+    public class ChangePasswordRequest
+    {
+
+        [Required(ErrorMessage = "Enter Old Password")]
+        public string OldPassword { get; set; } = string.Empty;
+
+
+        [Required(ErrorMessage = "Please Enter Password"), DataType(DataType.Password)]
+        public string NewPassword { get; set; } = string.Empty;
+
+
+        [Compare(nameof(NewPassword))]
+        public string ConfirmPassword { get; set; } = string.Empty;
 
     }
 }
