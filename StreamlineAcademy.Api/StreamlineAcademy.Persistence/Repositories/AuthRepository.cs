@@ -1,4 +1,6 @@
-﻿using StreamlineAcademy.Application.Abstractions.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using StreamlineAcademy.Application.Abstractions.IRepositories;
+using StreamlineAcademy.Domain.Entities;
 using StreamlineAcademy.Domain.Shared;
 using StreamlineAcademy.Persistence.Data;
 using System;
@@ -9,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace StreamlineAcademy.Persistence.Repositories
 {
-    public class AuthRepository:BaseRepository<BaseModel>, IAuthRepository
+    public class AuthRepository:BaseRepository<User>, IAuthRepository
     {
-        public AuthRepository(StreamlineAcademyDbContet contet):base(contet)
-        {
 
+        public AuthRepository(StreamlineAcademyDbContet context):base(context)
+        {
+            
         }
-        
+
     }
 }
