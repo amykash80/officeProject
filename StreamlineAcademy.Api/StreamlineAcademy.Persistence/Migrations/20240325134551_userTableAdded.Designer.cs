@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreamlineAcademy.Persistence.Data;
 
@@ -11,9 +12,11 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    partial class StreamlineAcademyDbContetModelSnapshot : ModelSnapshot
+    [Migration("20240325134551_userTableAdded")]
+    partial class userTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,13 +222,13 @@ namespace StreamlineAcademy.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ccdb541-6584-4ec5-9ca6-6c561d11f24f"),
-                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 26, 9, 59, 38, 861, DateTimeKind.Unspecified).AddTicks(1254), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("f4fef0c2-6dac-49bc-8062-6920d867718b"),
+                            CreatedOn = new DateTimeOffset(new DateTime(2024, 3, 25, 19, 15, 49, 249, DateTimeKind.Unspecified).AddTicks(199), new TimeSpan(0, 5, 30, 0, 0)),
                             Email = "ram@gmail.com",
                             Name = "Ram",
-                            Password = "$2a$11$kQ0wDagNBP.DmokJ8af9Auhlqwtl0JU.BnVB.EdWditXCLVnqJTcC",
+                            Password = "$2a$11$O0JiJ.Ko6xgrj3.RGQ9c5.UcMFUrO2KXH75TrVyBmQzKDdSRnYD8.",
                             PhoneNumber = "7267636376",
-                            Salt = "$2a$11$kQ0wDagNBP.DmokJ8af9Au",
+                            Salt = "$2a$11$O0JiJ.Ko6xgrj3.RGQ9c5.",
                             UserName = "superadmin@123",
                             UserRole = (byte)1
                         });
@@ -265,6 +268,11 @@ namespace StreamlineAcademy.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResetCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResetExpirable")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
@@ -300,8 +308,8 @@ namespace StreamlineAcademy.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("StreamlineAcademy.Domain.Entities.User", "User")
-                        .WithOne("Academy")
-                        .HasForeignKey("StreamlineAcademy.Domain.Entities.Academy", "Id")
+                        .WithMany()
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -338,12 +346,6 @@ namespace StreamlineAcademy.Persistence.Migrations
                         .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("StreamlineAcademy.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Academy")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

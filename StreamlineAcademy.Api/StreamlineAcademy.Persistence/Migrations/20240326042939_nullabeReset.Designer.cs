@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StreamlineAcademy.Persistence.Data;
 
@@ -11,9 +12,11 @@ using StreamlineAcademy.Persistence.Data;
 namespace StreamlineAcademy.Persistence.Migrations
 {
     [DbContext(typeof(StreamlineAcademyDbContet))]
-    partial class StreamlineAcademyDbContetModelSnapshot : ModelSnapshot
+    [Migration("20240326042939_nullabeReset")]
+    partial class nullabeReset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

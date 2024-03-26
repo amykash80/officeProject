@@ -41,7 +41,7 @@ namespace StreamlineAcademy.Api.Controllers
 
         public async Task<IResult> IsAcadeyNameUnique(string academyName)
         {
-           var isUnique= await academyService.IsAcademyNameUnique(academyName);
+            var isUnique = await academyService.IsAcademyNameUnique(academyName);
             return Results.Ok(isUnique);
         }
 

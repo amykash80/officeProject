@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StreamlineAcademy.Application\StreamlineAcademy.Application.csproj" />
+    <ProjectReference Include="..\StreamlineAcademy.Domain\StreamlineAcademy.Domain.csproj" />
+    <ProjectReference Include="..\StreamlineAcademy.Infrastructure\StreamlineAcademy.Infrastructure.csproj" />
     <ProjectReference Include="..\StreamlineAcademy.Persistence\StreamlineAcademy.Persistence.csproj" />
   </ItemGroup>
 

@@ -31,6 +31,7 @@ namespace StreamlineAcademy.Application.MapperProfiles
             {
                 CreateMap<AcademyRequest, Academy>();
                 CreateMap<Academy, AcademyResponse>();
+                CreateMap<AcademyRequest, User>();
             }
 
         }
