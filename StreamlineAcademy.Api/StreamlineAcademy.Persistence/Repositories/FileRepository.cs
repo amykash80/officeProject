@@ -11,7 +11,7 @@ namespace StreamlineAcademy.Persistence.Repositories
 {
     public class FileRepository:BaseRepository<AppFiles>,IFileRepository
     {
-        public FileRepository(StreamlineAcademyDbContet context):base(context) 
+        public FileRepository(StreamlineDbContet context):base(context) 
         {
             
         }

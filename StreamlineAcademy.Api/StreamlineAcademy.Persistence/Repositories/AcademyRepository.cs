@@ -22,7 +22,7 @@ namespace StreamlineAcademy.Persistence.Repositories
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public AcademyRepository(StreamlineAcademyDbContet context,IConfiguration configuration):base(context) 
+        public AcademyRepository(StreamlineDbContet context,IConfiguration configuration):base(context) 
         {
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("StreamlineAcademyDbContet")!;

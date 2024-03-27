@@ -11,7 +11,7 @@ namespace StreamlineAcademy.Persistence.Repositories
 {
     public class EnquiryRepository:BaseRepository<Enquiry>, IEnquiryRepository
     {
-        public EnquiryRepository(StreamlineAcademyDbContet context):base(context)
+        public EnquiryRepository(StreamlineDbContet context):base(context)
         {
             
         }

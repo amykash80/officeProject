@@ -14,7 +14,7 @@ namespace StreamlineAcademy.Persistence.Repositories
     public class AuthRepository:BaseRepository<User>, IAuthRepository
     {
 
-        public AuthRepository(StreamlineAcademyDbContet context):base(context)
+        public AuthRepository(StreamlineDbContet context):base(context)
         {
             
         }

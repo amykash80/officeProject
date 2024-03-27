@@ -11,7 +11,7 @@ namespace StreamlineAcademy.Persistence.Repositories
 {
     public class UserRepository:BaseRepository<User>,IUserRepository
     {
-        public UserRepository(StreamlineAcademyDbContet context):base(context)
+        public UserRepository(StreamlineDbContet context):base(context)
         {
             
         }

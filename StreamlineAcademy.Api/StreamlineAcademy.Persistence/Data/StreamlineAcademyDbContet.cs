@@ -11,9 +11,9 @@ using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace StreamlineAcademy.Persistence.Data
 {
-    public class StreamlineAcademyDbContet:DbContext
+    public class StreamlineDbContet : DbContext
     {
-        public StreamlineAcademyDbContet(DbContextOptions<StreamlineAcademyDbContet> options):base(options) 
+        public StreamlineDbContet(DbContextOptions<StreamlineDbContet> options):base(options) 
         {
            
         }

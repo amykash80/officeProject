@@ -27,21 +27,18 @@ namespace StreamlineAcademy.Application.Services
         private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
         private readonly IEnquiryService enquiryService;
-		private readonly IEmailService emailService;
 		private readonly IContextService contextService;
 
 		public AcademyService(IAcademyRepository academyRepository,
                                IMapper mapper ,
                                IUserRepository userRepository ,
                                IEnquiryService enquiryService,
-                               IEmailService emailService,
                                IContextService contextService)
         {
             this.academyRepository = academyRepository;
             this.mapper = mapper;
             this.userRepository = userRepository;
             this.enquiryService = enquiryService;
-			this.emailService = emailService;
 			this.contextService = contextService;
 		}
 

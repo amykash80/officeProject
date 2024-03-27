@@ -13,9 +13,9 @@ namespace StreamlineAcademy.Persistence.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel,new()
     {
-        private readonly StreamlineAcademyDbContet context;
+        private readonly StreamlineDbContet context;
 
-        public BaseRepository(StreamlineAcademyDbContet context)
+        public BaseRepository(StreamlineDbContet context)
         {
             this.context = context;
         }
