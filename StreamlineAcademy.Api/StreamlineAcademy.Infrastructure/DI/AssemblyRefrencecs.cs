@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using StreamlineAcademy.Application.Abstractions.Identity;
+using StreamlineAcademy.Application.Abstractions.IEmailService;
 using StreamlineAcademy.Application.Abstractions.JWT;
 using StreamlineAcademy.Infrastructure.Identity;
 using StreamlineAcademy.Infrastructure.JWT;
@@ -20,7 +21,7 @@ namespace StreamlineAcademy.Infrastructure.DI
             services.AddSingleton<IContextService, ContextService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IJwtProvider, JwtProvider>();
-            return services;
+			return services;
 
         }
     }

@@ -9,8 +9,7 @@ namespace StreamlineAcademy.Domain.Entities
 {
     public class AcademyType:BaseModel
     {
-        public string Name { get; set; } = null!;
-        
-        
-    }
+        public string? Name { get; set; }
+		public ICollection<Academy>? Academies { get; set; }
+	}
 }

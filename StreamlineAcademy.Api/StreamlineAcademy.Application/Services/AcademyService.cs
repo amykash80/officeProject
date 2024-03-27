@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Asn1.Cmp;
+using StreamlineAcademy.Application.Abstractions.Identity;
+using StreamlineAcademy.Application.Abstractions.IEmailService;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.RRModels;
@@ -11,9 +14,11 @@ using StreamlineAcademy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static StreamlineAcademy.Application.RRModels.AcademyResponse;
+using static StreamlineAcademy.Application.Shared.APIMessages;
 
 namespace StreamlineAcademy.Application.Services
 {
@@ -23,17 +28,23 @@ namespace StreamlineAcademy.Application.Services
         private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
         private readonly IEnquiryService enquiryService;
+		private readonly IEmailService emailService;
+		private readonly IContextService contextService;
 
-        public AcademyService(IAcademyRepository academyRepository,
+		public AcademyService(IAcademyRepository academyRepository,
                                IMapper mapper ,
                                IUserRepository userRepository ,
-                               IEnquiryService enquiryService)
+                               IEnquiryService enquiryService,
+                               IEmailService emailService,
+                               IContextService contextService)
         {
             this.academyRepository = academyRepository;
             this.mapper = mapper;
             this.userRepository = userRepository;
             this.enquiryService = enquiryService;
-        }
+			this.emailService = emailService;
+			this.contextService = contextService;
+		}
 
         public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id)
         {
@@ -67,18 +78,17 @@ namespace StreamlineAcademy.Application.Services
             user.Salt = AppEncryption.GenerateSalt();
             user.Password = AppEncryption.HashPassword(request.Password, user.Salt);
             user.UserRole = UserRole.AcademyAdmin;
-
-
             var returnVal = await userRepository.InsertAsync(user);
-            
             if (returnVal > 0)
             {
                 var academy=mapper.Map<Academy>(request);
                 academy.Id = user.Id;
                 var result = await academyRepository.InsertAsync(academy);
                 if (result > 0)
-                {
-                    var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
+				{
+
+				
+					var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                     var res = await academyRepository.GetAcademyById(academy.Id);
                     return ApiResponse<AcademyResponse>.SuccessResponse(mapper.Map<AcademyResponse>(res));
 

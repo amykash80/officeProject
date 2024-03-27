@@ -17,6 +17,7 @@ namespace StreamlineAcademy.Api.Controllers
         {
             this.authService = authService;
         }
+
         [Authorize]
         [HttpPost("ChangePassword")]
         public async Task<ApiResponse<string>> ChangePassword(ChangePasswordRequest model) => await authService.ChangePassword(model);

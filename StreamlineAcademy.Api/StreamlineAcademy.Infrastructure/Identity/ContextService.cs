@@ -16,7 +16,7 @@ namespace StreamlineAcademy.Infrastructure.Identity
         {
             this.httpContextAccessor = httpContextAccessor;
         }
-     
+
 
         public Guid? GetUserId()
         {
@@ -29,6 +29,18 @@ namespace StreamlineAcademy.Infrastructure.Identity
             return result;
         }
 
-       
+        public string HttpContextClientURL()
+        {
+            var path = httpContextAccessor?.HttpContext?.Request.Path;
+            return $" {httpContextAccessor?.HttpContext?.Request.Scheme}://{httpContextAccessor?.HttpContext?.Request.Host}{httpContextAccessor?.HttpContext?.Request.PathBase}";
+        }
+
+
+        public string HttpContextCurrentURL()
+        {
+            var clientRequest = httpContextAccessor?.HttpContext?.Request.Headers["Referer"];
+            return $"{clientRequest}";
+        }
+
     }
 }

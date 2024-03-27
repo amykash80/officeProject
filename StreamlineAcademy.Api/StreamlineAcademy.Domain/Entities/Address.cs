@@ -11,28 +11,39 @@ namespace StreamlineAcademy.Domain.Entities
 {
     public class Country:BaseModel
     {
-        
-        public string CountryName { get; set; } = null!;
-    }
+		public string? CountryName { get; set; }
 
-    public class State:BaseModel
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+	}
+
+	public class State:BaseModel
     {
         
-        public string StateName { get; set; } = null!;
+        public string? StateName { get; set; }
         public Guid? CountryId { get; set; }
-
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; } =null!;
-    }
 
-    public class City:BaseModel
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+
+	}
+
+	public class City:BaseModel
     {
-        public string CityName { get; set; } =null!;
-        
+        public string? CityName { get; set; }
         public Guid? StateId { get; set; }
 
         [ForeignKey(nameof(StateId))]
-        public State State { get; set; } =null !;
+        public State? State { get; set; }
 
-    }
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+
+
+	}
 }

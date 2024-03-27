@@ -24,6 +24,8 @@ namespace StreamlineAcademy.Domain.Entities
 
         public string? ResetCode { get; set; } = null!;
 
-        public Academy Academy { get; set; } = null!;
-    }
+		#region navigation
+		public Academy Academy { get; set; } = null!;
+		#endregion
+	}
 }

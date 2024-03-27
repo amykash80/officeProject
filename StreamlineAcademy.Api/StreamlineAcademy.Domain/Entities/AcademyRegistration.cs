@@ -34,10 +34,5 @@ namespace StreamlineAcademy.Domain.Entities
         public City City { get; set; } = null!;
 
 
-
-
-
-
-
-    }
+	}
 }
