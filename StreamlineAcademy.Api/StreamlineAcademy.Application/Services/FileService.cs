@@ -30,7 +30,7 @@ namespace StreamlineAcademy.Application.Services
             Module=module,
             EntityId=entityId,
             FilePath= filePath,
-            CreatedOn=DateTime.Now
+            CreatedDate=DateTime.Now
             };
 
             var returnVal=await fileRepository.InsertAsync(appFiles);

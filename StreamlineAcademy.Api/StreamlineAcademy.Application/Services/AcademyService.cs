@@ -73,7 +73,6 @@ namespace StreamlineAcademy.Application.Services
 
             var user = mapper.Map<User>(request);
             user.Salt = AppEncryption.GenerateSalt();
-            user.Password = AppEncryption.HashPassword(request.Password, user.Salt);
             user.UserRole = UserRole.AcademyAdmin; 
             var returnVal = await userRepository.InsertAsync(user); 
             if (returnVal > 0)

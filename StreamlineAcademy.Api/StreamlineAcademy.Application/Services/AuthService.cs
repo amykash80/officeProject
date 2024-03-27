@@ -42,15 +42,15 @@ namespace StreamlineAcademy.Application.Services
             if (user is null)
                 return ApiResponse<string>.ErrorResponse("User Not Found", HttpStatusCodes.NotFound);
 
-            if (AppEncryption.HashPassword(model.OldPassword, user.Salt) != user.Password)
-                return ApiResponse<string>.ErrorResponse("Old Password is Incorrect", HttpStatusCodes.BadRequest);
+            //if (AppEncryption.HashPassword(model.OldPassword, user.Salt) != user.Password)
+            //    return ApiResponse<string>.ErrorResponse("Old Password is Incorrect", HttpStatusCodes.BadRequest);
 
-            user.Salt = AppEncryption.GenerateSalt();
-            user.Password=AppEncryption.HashPassword(model.NewPassword,user.Salt); 
-            int returnVal=await authRepository.UpdateAsync(user); 
-            if (returnVal > 0)
-                return ApiResponse<string>.SuccessResponse("Password Changed Successfully", HttpStatusCodes.OK.ToString());
-                return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError);   
+            //user.Salt = AppEncryption.GenerateSalt();
+            //user.Password=AppEncryption.HashPassword(model.NewPassword,user.Salt); 
+            //int returnVal=await authRepository.UpdateAsync(user); 
+            //if (returnVal > 0)
+            //    return ApiResponse<string>.SuccessResponse("Password Changed Successfully", HttpStatusCodes.OK.ToString());
+               return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError);   
         }
 
         public async Task<ApiResponse<LoginResponseModel>> Login(LoginRequestModel request)
@@ -59,8 +59,8 @@ namespace StreamlineAcademy.Application.Services
             if (user is null)
                 return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest);
 
-            if((AppEncryption.HashPassword(request.Password,user.Salt)) != user.Password)
-                return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest); 
+            //if((AppEncryption.HashPassword(request.Password,user.Salt)) != user.Password)
+            //    return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest); 
 
             var response = new LoginResponseModel()
             {

@@ -13,6 +13,11 @@ namespace StreamlineAcademy.Domain.Entities
         public string CityName { get; set; } = null!; 
         public Guid? StateId { get; set; }
         [ForeignKey(nameof(StateId))]
-        public State State { get; set; } = null!;       
-    }
+        public State State { get; set; } = null!;
+
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+
+	}
 }

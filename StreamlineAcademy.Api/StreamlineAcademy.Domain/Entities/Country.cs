@@ -12,9 +12,13 @@ namespace StreamlineAcademy.Domain.Entities
     public class Country:BaseModel
     {   
         public string CountryName { get; set; } = null!;
-    }
 
-    
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+	}
 
-    
+
+
+
 }

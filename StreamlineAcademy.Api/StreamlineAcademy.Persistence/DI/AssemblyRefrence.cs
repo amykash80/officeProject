@@ -18,13 +18,11 @@ namespace StreamlineAcademy.Persistence.DI
     {
         public static IServiceCollection AddPersistenceService(this IServiceCollection services,IConfiguration configuration)
         {
-            services.AddDbContextPool<StreamlineAcademyDbContet>(options => options.UseSqlServer(configuration.GetConnectionString(nameof(StreamlineAcademyDbContet))));
+            services.AddDbContextPool<StreamlineAcademyDbContet>(options => options.UseSqlServer(configuration.GetConnectionString("SLAcademyDBConnection")));
             services.AddScoped<IEnquiryRepository, EnquiryRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IAcademyRepository, AcademyRepository>();
-
             services.AddScoped<IUserRepository, UserRepository>();
-
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             

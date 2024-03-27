@@ -14,5 +14,10 @@ namespace StreamlineAcademy.Domain.Entities
         public Guid? CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; } = null!;
-    }
+
+		#region navigation
+		public ICollection<Academy>? Academies { get; set; }
+		#endregion
+
+	}
 }
