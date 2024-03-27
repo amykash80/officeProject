@@ -52,7 +52,7 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies()
         {
-            var returnVal = await academyRepository.GetallAcademies();
+            var returnVal = await academyRepository.GetAllAcademies();
             if (returnVal is not null)
                 return ApiResponse<IEnumerable<AcademyResponseModel>>.SuccessResponse(returnVal.OrderBy(_=>_.AcademyName),$"Found {returnVal.Count()} Academies");
                 return ApiResponse<IEnumerable<AcademyResponseModel>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);

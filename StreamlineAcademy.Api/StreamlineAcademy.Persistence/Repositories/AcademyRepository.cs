@@ -1,7 +1,10 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
+using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Domain.Entities;
 using StreamlineAcademy.Domain.Enums;
 using StreamlineAcademy.Domain.Models.Requests;
@@ -19,85 +22,97 @@ namespace StreamlineAcademy.Persistence.Repositories
 {
     public class AcademyRepository:BaseRepository<Academy>,IAcademyRepository
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _connectionString;
+		private readonly StreamlineDbContet context;
 
-        public AcademyRepository(StreamlineDbContet context,IConfiguration configuration):base(context) 
+        public AcademyRepository(StreamlineDbContet context):base(context) 
         {
-            _configuration = configuration;
-            _connectionString = configuration.GetConnectionString("StreamlineAcademyDbContet")!;
+			this.context = context;
         }
-        #region dapper methods
+        
 
         public async Task<AcademyResponseModel> GetAcademyById(Guid id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+
+            var academy = await context.Academies
+              .Include(a => a.User)
+              .Include(a => a.AcademyType)
+              .Include(a => a.Country)
+              .Include(a => a.State)
+              .Include(a => a.City)
+              .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (academy is not null)
             {
-                connection.Open();
 
-                string query = @"
-                SELECT a.Id, a.AcademyName, U.Email, U.PhoneNumber,U.Name as AcademyAdmin ,U.PostalCode,U.Address,at.Name as AcademyType,
-                       c.CountryName, s.StateName, ct.CityName,U.UserRole
-                FROM Academies a
-                INNER JOIN Users U ON a.Id=U.Id
-                INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
-                INNER JOIN Countries c ON a.CountryId = c.Id
-                INNER JOIN States s ON a.StateId = s.Id
-                INNER JOIN Cities ct ON a.CityId = ct.Id
+                var response = new AcademyResponseModel
+                {
+                    Id = academy.Id,
+                    AcademyName = academy.AcademyName,
+                    Email = academy.User.Email,
+                    PhoneNumber = academy.User.PhoneNumber,
+                    AcademyAdmin = academy.User.Name,
+                    PostalCode = academy.User.PostalCode,
+                    Address = academy.User.Address,
+                    AcademyType = academy.AcademyType.Name,
+                    CountryName = academy.Country.CountryName,
+                    StateName = academy.State.StateName,
+                    CityName = academy.City.CityName,
+                    UserRole = academy.User.UserRole
+                };
 
-                WHERE
-                 a.Id = @Id";
-
-                var returnVal= await connection.QueryFirstOrDefaultAsync<AcademyResponseModel>(query,new {Id=id});
-                return returnVal!;
-
-
+                return response;
             }
+            return new AcademyResponseModel() {  };
+
         }
 
-        public async Task<IEnumerable<AcademyResponseModel>> GetallAcademies()
+		public async Task<List<AcademyResponseModel>> GetAllAcademies()
+		{
+			var academies = await context.Academies
+				.Include(a => a.User) 
+				.Include(a => a.AcademyType)
+				.Include(a => a.Country)
+				.Include(a => a.State)
+				.Include(a => a.City)
+				.Select(a => new AcademyResponseModel
+				{
+					Id = a.Id,
+					AcademyName = a.AcademyName,
+					Email = a.User.Email,
+					PhoneNumber = a.User.PhoneNumber,
+					AcademyAdmin = a.User.Name,
+					PostalCode = a.User.PostalCode,
+					Address = a.User.Address,
+					AcademyType = a.AcademyType.Name,
+					CountryName = a.Country.CountryName,
+					StateName = a.State.StateName,
+					CityName = a.City.CityName,
+					UserRole = a.User.UserRole
+				})
+				.ToListAsync();
+
+			return academies;
+		}
+
+
+		public async Task<bool> UpdateRegistrationStatus(Guid id, RegistrationStatus status)
         {
+			var enquiry = await context.Enquiries.FirstOrDefaultAsync(e => e.Id == id);
 
+			if (enquiry == null)
+			{
+				return false; 
+			}
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+			enquiry.RegistrationStatus = status;
 
-                string query = @"
-                SELECT a.Id, a.AcademyName, U.Email, U.PhoneNumber,U.Name as AcademyAdmin ,U.PostalCode,U.Address,at.Name as AcademyType,
-                       c.CountryName, s.StateName, ct.CityName,U.UserRole
-                FROM Academies a
-                INNER JOIN Users U ON a.Id=U.Id
-                INNER JOIN AcademyTypes at ON a.AcademyTypeId = at.Id
-                INNER JOIN Countries c ON a.CountryId = c.Id
-                INNER JOIN States s ON a.StateId = s.Id
-                INNER JOIN Cities ct ON a.CityId = ct.Id";
+			int rowsAffected = await context.SaveChangesAsync();
 
-                return await connection.QueryAsync<AcademyResponseModel>(query);
+			return rowsAffected > 0;
+		}
 
+	}
 
-            }
-
-        }
-
-        public async Task<bool> UpdateRegistrationStatus(Guid id, RegistrationStatus status)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-
-
-            string sql = @"UPDATE Enquiries
-                        SET RegistrationStatus = @Status
-                         WHERE Id = @id";
-
-            int rowsAffected = await connection.ExecuteAsync(sql, new { Id = id, Status = status });
-
-            return rowsAffected > 0;
-
-            }
-
-        }
-
-        #endregion
+       
     }
-}
+
