@@ -10,17 +10,10 @@ using System.Threading.Tasks;
 namespace StreamlineAcademy.Domain.Entities
 {
     public class Enquiry:BaseModel
-    {
-        
-       
-        public string Name { get; set; } = null!;
-
-        
-        public string Email { get; set; } = null!;
-
-        
+    { 
+        public string Name { get; set; } = null!;       
+        public string Email { get; set; } = null!;       
         public string PhoneNumber { get; set; } = null!;
-
         public RegistrationStatus RegistrationStatus { get; set; }=RegistrationStatus.Pending;
 
     }

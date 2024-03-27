@@ -22,6 +22,7 @@ namespace StreamlineAcademy.Application.DI
             services.AddScoped<IFileService, FileService>();
             services.AddSingleton<IStorageService>(new StorageService(WebRootPath));
             services.AddScoped<IAcademyService, AcademyService>();
+            services.AddScoped<IAuthService, AuthService>();
             return services;
         }
     }

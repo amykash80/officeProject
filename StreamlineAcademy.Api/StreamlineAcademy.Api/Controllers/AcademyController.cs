@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StreamlineAcademy.Application.Abstractions.IServices;
-using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Services;
 using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Domain.Enums;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System.Runtime.InteropServices;
-using static StreamlineAcademy.Application.RRModels.AcademyResponse;
+//using static StreamlineAcademy.Domain.Models.Requests.AcademyResponseModel;
 
 namespace StreamlineAcademy.Api.Controllers
 {
@@ -23,19 +24,19 @@ namespace StreamlineAcademy.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request) => await academyService.RegisterAcademy(request);
+        public async Task<ApiResponse<AcademyResponseModel>> RegisterAcademy(AcademyRequestModel request) => await academyService.RegisterAcademy(request);
 
         [HttpGet]
-        public async Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies() => await academyService.GetAllAcademies();
+        public async Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies() => await academyService.GetAllAcademies();
 
         [HttpGet("{id:guid}")]
-        public async Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id) => await academyService.GetAcademyById(id);
+        public async Task<ApiResponse<AcademyResponseModel>> GetAcademyById(Guid id) => await academyService.GetAcademyById(id);
 
         [HttpDelete("{id:guid}")]
-        public async Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id) => await academyService.DeleteAcademy(id);
+        public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id) => await academyService.DeleteAcademy(id);
 
         [HttpPut]
-        public async Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest model) => await academyService.UpdateAcademy(model);
+        public async Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest model) => await academyService.UpdateAcademy(model);
 
         [HttpGet("check-academyname/{academyName}")]
 

@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.Abstractions.IServices;
-using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Domain.Entities;
 using StreamlineAcademy.Domain.Enums;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace StreamlineAcademy.Application.Services
     public class EnquiryService : IEnquiryService
     {
         private readonly IEnquiryRepository enquiryrepository;
-        private readonly IMapper mapper;
-
+        private readonly IMapper mapper; 
         public EnquiryService(IEnquiryRepository enquiryrepository,IMapper mapper)
         {
             this.enquiryrepository = enquiryrepository;
@@ -25,74 +25,63 @@ namespace StreamlineAcademy.Application.Services
         }
 
        
-        public async Task<ApiResponse<EnquiryResponse>> AddEnquiry(EnquiryRequest request)
+        public async Task<ApiResponse<EnquiryResponseModel>> AddEnquiry(EnquiryRequestModel request)
         {
             if( await enquiryrepository.FirstOrDefaultAsync(x=>x.Name== request.Name) is not null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Name  already Exists", HttpStatusCodes.Conflict);
+                return ApiResponse<EnquiryResponseModel>.ErrorResponse("Name  already Exists", HttpStatusCodes.Conflict);
 
             if (await enquiryrepository.FirstOrDefaultAsync(x => x.Email == request.Email ) is not null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse(" Email already Exists", HttpStatusCodes.Conflict);
+                return ApiResponse<EnquiryResponseModel>.ErrorResponse(" Email already Exists", HttpStatusCodes.Conflict);
 
-            var enquiry = mapper.Map<Enquiry>(request);
-
-            var res = await enquiryrepository.InsertAsync(enquiry);
-
+            var enquiry = mapper.Map<Enquiry>(request); 
+            var res = await enquiryrepository.InsertAsync(enquiry); 
             if (res > 0)
-                return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry), "Enquiry Added Successfully", HttpStatusCodes.Created);
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again",HttpStatusCodes.InternalServerError);
- 
+                return ApiResponse<EnquiryResponseModel>.SuccessResponse(mapper.Map<EnquiryResponseModel>(enquiry), "Enquiry Added Successfully", HttpStatusCodes.Created);
+                return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again",HttpStatusCodes.InternalServerError); 
         }
 
-        public async Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request)
+        public async Task<ApiResponse<EnquiryResponseModel>> UpdateEnquiry(EnquiryUpdateRequest request)
         {
-            var result = await enquiryrepository.GetByIdAsync(x => x.Id == request.Id);
-
+            var result = await enquiryrepository.GetByIdAsync(x => x.Id == request.Id); 
             if(result is null)
-            return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
 
-            var enquiry = mapper.Map(request,result);
-  
-            var returnVal=  await enquiryrepository.UpdateAsync(enquiry);
-
-
+            var enquiry = mapper.Map(request,result); 
+            var returnVal=  await enquiryrepository.UpdateAsync(enquiry); 
             if (returnVal is > 0)
-                return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(enquiry),"Enquiry Updated Successfullly");
-            return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
-
-
+            return ApiResponse<EnquiryResponseModel>.SuccessResponse(mapper.Map<EnquiryResponseModel>(enquiry),"Enquiry Updated Successfullly");
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError); 
         }
 
-        public  async Task<ApiResponse<EnquiryResponse>> DeleteEnquiry(Guid id)
-        {
-
+        public  async Task<ApiResponse<EnquiryResponseModel>> DeleteEnquiry(Guid id)
+        { 
             var existingEnquiry = await enquiryrepository.GetByIdAsync(x => x.Id == id);
             if (existingEnquiry is null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry Not Found");
+                return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry Not Found");
            
             var result = await enquiryrepository.DeleteAsync(existingEnquiry);
             if (result is > 0)
             {
-                var deleteResponse = mapper.Map<EnquiryResponse>(existingEnquiry);
-                return ApiResponse<EnquiryResponse>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
+                var deleteResponse = mapper.Map<EnquiryResponseModel>(existingEnquiry);
+                return ApiResponse<EnquiryResponseModel>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
             }
-            return ApiResponse<EnquiryResponse>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
-
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError); 
         }
 
-        public async Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries()
+        public async Task<ApiResponse<IEnumerable<EnquiryResponseModel>>> GetAllEnquiries()
         {
             var enquiryList = await enquiryrepository.GetAllAsync();
             if(enquiryList.Any())
-                return ApiResponse<IEnumerable<EnquiryResponse>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponse>>(enquiryList.OrderBy(x=>x.Name)),$"Found {enquiryList.Count()} Enquiries");
-                return ApiResponse<IEnumerable<EnquiryResponse>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
+                return ApiResponse<IEnumerable<EnquiryResponseModel>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponseModel>>(enquiryList.OrderBy(x=>x.Name)),$"Found {enquiryList.Count()} Enquiries");
+                return ApiResponse<IEnumerable<EnquiryResponseModel>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
         }
 
-        public async Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id)
+        public async Task<ApiResponse<EnquiryResponseModel>> GetEnquiryById(Guid id)
         {
             if (await enquiryrepository.GetByIdAsync(x => x.Id == id) is null)
-                return ApiResponse<EnquiryResponse>.ErrorResponse("Enquiry Not Found");
+                return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry Not Found");
 
-            return ApiResponse<EnquiryResponse>.SuccessResponse(mapper.Map<EnquiryResponse>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
+            return ApiResponse<EnquiryResponseModel>.SuccessResponse(mapper.Map<EnquiryResponseModel>(await enquiryrepository.GetByIdAsync(x => x.Id == id)));
         }
 
         public async Task<bool> IsEnquiryEmailUnique(string email)

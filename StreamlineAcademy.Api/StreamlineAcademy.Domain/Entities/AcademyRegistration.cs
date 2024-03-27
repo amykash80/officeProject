@@ -20,24 +20,14 @@ namespace StreamlineAcademy.Domain.Entities
 
         [ForeignKey(nameof(AcademyTypeId))]
         public AcademyType AcademyType { get; set; } = null!;
-
         public Guid CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; } = null!;
-
         public Guid StateId { get; set; }
         [ForeignKey(nameof(StateId))]
         public State State { get; set; } = null!;
-
         public Guid CityId { get; set; }
         [ForeignKey(nameof(CityId))]
-        public City City { get; set; } = null!;
-
-
-
-
-
-
-
+        public City City { get; set; } = null!; 
     }
 }

@@ -1,5 +1,6 @@
-﻿using StreamlineAcademy.Application.RRModels;
-using StreamlineAcademy.Application.Shared;
+﻿using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,11 @@ namespace StreamlineAcademy.Application.Abstractions.IServices
 {
     public interface IEnquiryService
     {
-        Task<ApiResponse<EnquiryResponse>> AddEnquiry (EnquiryRequest request);
-        Task<ApiResponse<EnquiryResponse>> UpdateEnquiry(EnquiryUpdateRequest request);
-
-        Task <ApiResponse<EnquiryResponse>> DeleteEnquiry (Guid id);
-
-        Task<ApiResponse<IEnumerable<EnquiryResponse>>> GetAllEnquiries();
-
-        Task<ApiResponse<EnquiryResponse>> GetEnquiryById(Guid id);
-
-        Task<bool> IsEnquiryEmailUnique(string email);
-
+        Task<ApiResponse<EnquiryResponseModel>>AddEnquiry(EnquiryRequestModel request);
+        Task<ApiResponse<EnquiryResponseModel>>UpdateEnquiry(EnquiryUpdateRequest request);
+        Task <ApiResponse<EnquiryResponseModel>>DeleteEnquiry(Guid id);
+        Task<ApiResponse<IEnumerable<EnquiryResponseModel>>>GetAllEnquiries();
+        Task<ApiResponse<EnquiryResponseModel>>GetEnquiryById(Guid id);
+        Task<bool> IsEnquiryEmailUnique(string email); 
     }
 }

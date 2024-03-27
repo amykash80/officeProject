@@ -1,29 +1,23 @@
-﻿using StreamlineAcademy.Application.RRModels;
-using StreamlineAcademy.Application.Shared;
+﻿using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StreamlineAcademy.Application.RRModels.AcademyResponse;
+//using static StreamlineAcademy.Domain.Models.Requests.AcademyResponseModel;
 
 namespace StreamlineAcademy.Application.Abstractions.IServices
 {
     public interface IAcademyService
     {
-        Task<ApiResponse<AcademyResponse>> RegisterAcademy(AcademyRequest request);
-        Task<ApiResponse<IEnumerable<AcademyResponse>>> GetAllAcademies();
-
-        Task<ApiResponse<AcademyResponse>> GetAcademyById(Guid id);
-
-        Task<ApiResponse<AcademyResponse>> DeleteAcademy(Guid id);
-
-        Task<ApiResponse<AcademyResponse>> UpdateAcademy(AcademyUpdateRequest request);
-
+        Task<ApiResponse<AcademyResponseModel>> RegisterAcademy(AcademyRequestModel request);
+        Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies();
+        Task<ApiResponse<AcademyResponseModel>> GetAcademyById(Guid id);
+        Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id);
+        Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest request);
         Task<bool> IsAcademyNameUnique (string name);
-
-        Task<bool> IsAcademyEmailUnique(string email);
-
-
+        Task<bool> IsAcademyEmailUnique(string email); 
     }
 }
