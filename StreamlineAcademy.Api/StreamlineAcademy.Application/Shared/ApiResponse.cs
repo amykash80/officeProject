@@ -17,31 +17,23 @@ namespace StreamlineAcademy.Application.Shared
 
 
         public static ApiResponse<T> SuccessResponse(T? result, string message = "Success", int statusCode = HttpStatusCodes.OK)
-        {
-
+        { 
             return new ApiResponse<T>() { 
             IsSuccess=true,
             Message = message,
             StatusCode = statusCode,
             Result = result,
-            
-            };
-
-
+            }; 
         }
 
         public static ApiResponse<T> ErrorResponse( string message = "Error", int statusCode = HttpStatusCodes.BadRequest)
-        {
-
+        {                 
             return new ApiResponse<T>()
             {
                 IsSuccess = false,
                 Message = message,
-                StatusCode = statusCode,
-            
-            };
-
-
+                StatusCode = statusCode, 
+            }; 
         }
     }
 }

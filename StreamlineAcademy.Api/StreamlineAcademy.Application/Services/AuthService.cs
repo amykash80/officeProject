@@ -3,10 +3,11 @@ using StreamlineAcademy.Application.Abstractions.Identity;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.Abstractions.JWT;
-using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Application.Shared;
 using StreamlineAcademy.Application.Utils;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,8 @@ namespace StreamlineAcademy.Application.Services
             this.jwtProvider = jwtProvider;
         }
 
-        public async Task<ApiResponse<string>> ChangePassword(ChangePasswordRequest model)
-        {
-
+        public async Task<ApiResponse<string>> ChangePassword(ChangePasswordRequestModel model)
+        { 
             var id = contextService.GetUserId();
             var user=await authRepository.FirstOrDefaultAsync(x=>x.Id == id);
             if (user is null)
@@ -46,40 +46,32 @@ namespace StreamlineAcademy.Application.Services
                 return ApiResponse<string>.ErrorResponse("Old Password is Incorrect", HttpStatusCodes.BadRequest);
 
             user.Salt = AppEncryption.GenerateSalt();
-            user.Password=AppEncryption.HashPassword(model.NewPassword,user.Salt);
-
-            int returnVal=await authRepository.UpdateAsync(user);
-
+            user.Password=AppEncryption.HashPassword(model.NewPassword,user.Salt); 
+            int returnVal=await authRepository.UpdateAsync(user); 
             if (returnVal > 0)
                 return ApiResponse<string>.SuccessResponse("Password Changed Successfully", HttpStatusCodes.OK.ToString());
-                    return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError);
-
+                return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError);   
         }
 
-        public async Task<ApiResponse<LoginResponse>> Login(LoginRequest request)
+        public async Task<ApiResponse<LoginResponseModel>> Login(LoginRequestModel request)
         {
             var user = await authRepository.FirstOrDefaultAsync(x=>x.Email==request.Email);
             if (user is null)
-                return ApiResponse<LoginResponse>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest);
+                return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest);
 
-                if((AppEncryption.HashPassword(request.Password,user.Salt)) != user.Password)
-                   return ApiResponse<LoginResponse>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest);
-                  
+            if((AppEncryption.HashPassword(request.Password,user.Salt)) != user.Password)
+                return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest); 
 
-            var response = new LoginResponse()
+            var response = new LoginResponseModel()
             {
                 FullName = user.Name,
                 UserRole = user.UserRole,
-                Token = jwtProvider.GenerateToken(user)
-
+                Token = jwtProvider.GenerateToken(user) 
             };
 
-            return ApiResponse<LoginResponse>.SuccessResponse(response);
+            return ApiResponse<LoginResponseModel>.SuccessResponse(response);
         }
-        
-
-        
+         
     }
-
-
+     
 }

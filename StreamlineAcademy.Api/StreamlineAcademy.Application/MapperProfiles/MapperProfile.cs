@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Domain.Entities;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace StreamlineAcademy.Application.MapperProfiles
 
             public EnqiryProfile()
             {
-                CreateMap<EnquiryRequest, Enquiry>();
-                CreateMap<Enquiry, EnquiryResponse>();
+                CreateMap<EnquiryRequestModel, Enquiry>();
+                CreateMap<Enquiry, EnquiryResponseModel>();
                 CreateMap<EnquiryUpdateRequest, Enquiry>();
                 
             }
@@ -29,9 +30,9 @@ namespace StreamlineAcademy.Application.MapperProfiles
 
             public AcademyProfile()
             {
-                CreateMap<AcademyRequest, Academy>();
-                CreateMap<Academy, AcademyResponse>();
-                CreateMap<AcademyRequest, User>();
+                CreateMap<AcademyRequestModel, Academy>();
+                CreateMap<Academy, AcademyResponseModel>();
+                CreateMap<AcademyRequestModel, User>();
             }
 
         }
@@ -41,8 +42,8 @@ namespace StreamlineAcademy.Application.MapperProfiles
 
             public LoginProfile()
             {
-                CreateMap<LoginRequest, User>();
-                CreateMap<User, LoginResponse>();
+                CreateMap<LoginRequestModel, User>();
+                CreateMap<User, LoginResponseModel>();
             }
 
         }

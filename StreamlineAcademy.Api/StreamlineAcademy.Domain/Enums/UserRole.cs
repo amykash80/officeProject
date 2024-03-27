@@ -14,23 +14,9 @@ namespace StreamlineAcademy.Domain.Enums
         Student = 4,
     }
 
-    public enum RegistrationStatus : byte
-    {
+   
 
-     Pending = 1,
-     Approved = 2,
-     Rejected = 3,
-    
-    }
-
-    public enum Module : byte
-    {
-        SuperAdmin = 1,
-        AcademyAdmin = 2,
-        Instructor = 3,
-        Student = 4,
-
-    }
+   
 
 
 }

@@ -10,8 +10,7 @@ namespace StreamlineAcademy.Application.Services
 {
     internal class StorageService : IStorageService
     {
-        private readonly string webRootPath;
-
+        private readonly string webRootPath; 
         public StorageService(string WebRootPath)
         {
             webRootPath = WebRootPath;
@@ -36,10 +35,8 @@ namespace StreamlineAcademy.Application.Services
             return string.Concat(GetVirtualPath(), fileName);
         }
 
-        #region helperFunctions
-
-        private string GetPhysicalPath() => Path.Combine(webRootPath, "Files");
-
+        #region helperFunctions 
+        private string GetPhysicalPath() => Path.Combine(webRootPath, "Files"); 
         private string GetVirtualPath() => "/Files/";
         #endregion
     }

@@ -14,8 +14,7 @@ namespace StreamlineAcademy.Application.Services
     public class FileService : IFileService
     {
         private readonly IStorageService storageService;
-        private readonly IFileRepository fileRepository;
-
+        private readonly IFileRepository fileRepository; 
         public FileService(IStorageService storageService,
                            IFileRepository fileRepository)
         {
@@ -37,9 +36,7 @@ namespace StreamlineAcademy.Application.Services
             var returnVal=await fileRepository.InsertAsync(appFiles);
             if (returnVal > 0)
                 return filePath;
-            return "No FilePath Found";
-
-
+            return "No FilePath Found"; 
         }
     }
 }

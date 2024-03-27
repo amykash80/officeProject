@@ -2,9 +2,10 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StreamlineAcademy.Application.Abstractions.IRepositories;
-using StreamlineAcademy.Application.RRModels;
 using StreamlineAcademy.Domain.Entities;
 using StreamlineAcademy.Domain.Enums;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 using StreamlineAcademy.Persistence.Data;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace StreamlineAcademy.Persistence.Repositories
         }
         #region dapper methods
 
-        public async Task<AcademyResponse> GetAcademyById(Guid id)
+        public async Task<AcademyResponseModel> GetAcademyById(Guid id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -47,14 +48,14 @@ namespace StreamlineAcademy.Persistence.Repositories
                 WHERE
                  a.Id = @Id";
 
-                var returnVal= await connection.QueryFirstOrDefaultAsync<AcademyResponse>(query,new {Id=id});
+                var returnVal= await connection.QueryFirstOrDefaultAsync<AcademyResponseModel>(query,new {Id=id});
                 return returnVal!;
 
 
             }
         }
 
-        public async Task<IEnumerable<AcademyResponse>> GetallAcademies()
+        public async Task<IEnumerable<AcademyResponseModel>> GetallAcademies()
         {
 
 
@@ -72,7 +73,7 @@ namespace StreamlineAcademy.Persistence.Repositories
                 INNER JOIN States s ON a.StateId = s.Id
                 INNER JOIN Cities ct ON a.CityId = ct.Id";
 
-                return await connection.QueryAsync<AcademyResponse>(query);
+                return await connection.QueryAsync<AcademyResponseModel>(query);
 
 
             }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StreamlineAcademy.Application.Abstractions.IServices;
-using StreamlineAcademy.Application.RRModels;
+using StreamlineAcademy.Application.Services;
 using StreamlineAcademy.Application.Shared;
+using StreamlineAcademy.Domain.Models.Requests;
+using StreamlineAcademy.Domain.Models.Responses;
 
 namespace StreamlineAcademy.Api.Controllers
 {
@@ -20,6 +22,10 @@ namespace StreamlineAcademy.Api.Controllers
 
         [Authorize]
         [HttpPost("ChangePassword")]
-        public async Task<ApiResponse<string>> ChangePassword(ChangePasswordRequest model) => await authService.ChangePassword(model);
+        public async Task<ApiResponse<string>> ChangePassword(ChangePasswordRequestModel model) => await authService.ChangePassword(model);
+
+        
+        [HttpPost("Login")]
+        public async Task<ApiResponse<LoginResponseModel>> login(LoginRequestModel model) => await authService.Login(model);
     }
 }
