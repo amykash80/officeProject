@@ -25,7 +25,7 @@ namespace StreamlineAcademy.Application.Shared
             }; 
         }
 
-        public static ApiResponse<T> ErrorResponse( string message = "Error", string warningMessege = "" int statusCode = HttpStatusCodes.BadRequest)
+        public static ApiResponse<T> ErrorResponse( string message = "Error", string warningMessege = "" ,int statusCode = HttpStatusCodes.BadRequest)
         {                 
             return new ApiResponse<T>()
             {

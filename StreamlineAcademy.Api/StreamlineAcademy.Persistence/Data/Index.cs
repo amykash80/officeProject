@@ -31,7 +31,7 @@ namespace StreamlineAcademy.Persistence.Data
                         Email = "ram@gmail.com",
                         UserName = "superadmin@123",
                         Salt = Passwordsalt,
-                        Password = AppEncryption.HashPassword("superadmin", Passwordsalt),
+                        Password = AppEncryption.CreatePassword("superadmin", Passwordsalt),
                         PhoneNumber = "7267636376",
                         UserRole = UserRole.SuperAdmin,
                         CreatedDate = DateTime.Now,

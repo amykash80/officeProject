@@ -84,14 +84,13 @@ public static class APIMessages
 
 		public static class Auth
     {
-        public const string UsernameAlreadyTaken = "Username is already taken.";
+        public const string NameAlreadyTaken = "Name is already taken.";
        
-
         public const string EmailAlreadyRegistered = "Email already registered.";
 
-        public const string PhoneNumberAlreadyRegistered = "Contact Number already registered.";
+        public const string PhoneNumberAlreadyRegistered = "Phone Number already registered.";
 
-        public const string UsernameOrPasswordIsIncorrect = "Username or/and Password is Incorrect.";
+        public const string EmailOrPasswordIsIncorrect = "Email or/and Password is Incorrect.";
 
         public const string PasswordChangedSuccess = "Password changed successfully.";
 

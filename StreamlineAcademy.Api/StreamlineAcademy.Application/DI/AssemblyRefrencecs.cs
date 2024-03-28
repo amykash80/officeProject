@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StreamlineAcademy.Application.Abstractions.IEmailService;
 using StreamlineAcademy.Application.Abstractions.IServices;
 using StreamlineAcademy.Application.Services;
 using System;
@@ -23,6 +24,7 @@ namespace StreamlineAcademy.Application.DI
             services.AddSingleton<IStorageService>(new StorageService(WebRootPath));
             services.AddScoped<IAcademyService, AcademyService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddTransient<IEmailHelperService, EmailHelperService>();
             return services;
         }
     }

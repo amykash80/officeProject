@@ -28,24 +28,27 @@ namespace StreamlineAcademy.Application.Services
         private readonly IUserRepository userRepository;
         private readonly IEnquiryService enquiryService;
 		private readonly IContextService contextService;
+		private readonly IEmailHelperService emailHelperService;
 
 		public AcademyService(IAcademyRepository academyRepository,
                                IMapper mapper ,
                                IUserRepository userRepository ,
                                IEnquiryService enquiryService,
-                               IContextService contextService)
+                               IContextService contextService,
+                               IEmailHelperService emailHelperService)
         {
             this.academyRepository = academyRepository;
             this.mapper = mapper;
             this.userRepository = userRepository;
             this.enquiryService = enquiryService;
 			this.contextService = contextService;
+			this.emailHelperService = emailHelperService;
 		}
 
         public async Task<ApiResponse<AcademyResponseModel>> GetAcademyById(Guid id)
         {
             if(await academyRepository.GetByIdAsync(x => x.Id == id) is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound.ToString());
 
             return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(await academyRepository.GetAcademyById(id)));
         }
@@ -55,21 +58,22 @@ namespace StreamlineAcademy.Application.Services
             var returnVal = await academyRepository.GetAllAcademies();
             if (returnVal is not null)
                 return ApiResponse<IEnumerable<AcademyResponseModel>>.SuccessResponse(returnVal.OrderBy(_=>_.AcademyName),$"Found {returnVal.Count()} Academies");
-                return ApiResponse<IEnumerable<AcademyResponseModel>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+                return ApiResponse<IEnumerable<AcademyResponseModel>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound.ToString());
         }
 
         public async Task<ApiResponse<AcademyResponseModel>> RegisterAcademy(AcademyRequestModel request)
         { 
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.AcademyName == request.AcademyName);
             if (existingAcademy is not  null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict.ToString());
 
             var existingEmail = await userRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (existingEmail is not null)
-              return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict); 
+              return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict.ToString()); 
 
             var user = mapper.Map<User>(request);
             user.Salt = AppEncryption.GenerateSalt();
+            user.Password=AppEncryption.CreatePassword(request.Password!,user.Salt);
             user.UserRole = UserRole.AcademyAdmin; 
             var returnVal = await userRepository.InsertAsync(user); 
             if (returnVal > 0)
@@ -79,22 +83,21 @@ namespace StreamlineAcademy.Application.Services
                 var result = await academyRepository.InsertAsync(academy);
                 if (result > 0)
 				{
-
-				
+                    var emailSent = await emailHelperService.SendRegistrationEmail(user.Email, user.Name, user.Password);
 					var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                     var res = await academyRepository.GetAcademyById(academy.Id);
                     return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(res)); 
                 } 
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest); 
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest.ToString()); 
             }
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest); 
+            return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest.ToString()); 
         }
 
         public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id)
         { 
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (existingAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found",HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found",HttpStatusCodes.NotFound.ToString());
 
             var result = await academyRepository.DeleteAsync(existingAcademy);
             if (result > 0)
@@ -102,7 +105,7 @@ namespace StreamlineAcademy.Application.Services
                 var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
                 return ApiResponse<AcademyResponseModel>.SuccessResponse(returnVal, "Enquiry Deleted Successfullly");
             } 
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError); 
+            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError.ToString()); 
         }
          
 
@@ -110,13 +113,13 @@ namespace StreamlineAcademy.Application.Services
         {
             var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
             if (existAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound.ToString());
 
             var academy = mapper.Map(request, existAcademy);
             var updateAcademy = await academyRepository.UpdateAsync(existAcademy);
             if (updateAcademy is > 0)
                 return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(academy), "Academy Updated Successfullly");
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
+            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError.ToString());
         }
 
         public async Task<bool> IsAcademyNameUnique(string name)

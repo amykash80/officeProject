@@ -40,7 +40,7 @@ namespace StreamlineAcademy.Application.Services
             var id = contextService.GetUserId();
             var user=await authRepository.FirstOrDefaultAsync(x=>x.Id == id);
             if (user is null)
-                return ApiResponse<string>.ErrorResponse("User Not Found", HttpStatusCodes.NotFound);
+                return ApiResponse<string>.ErrorResponse("User Not Found", HttpStatusCodes.NotFound.ToString());
 
             //if (AppEncryption.HashPassword(model.OldPassword, user.Salt) != user.Password)
             //    return ApiResponse<string>.ErrorResponse("Old Password is Incorrect", HttpStatusCodes.BadRequest);
@@ -50,14 +50,14 @@ namespace StreamlineAcademy.Application.Services
             //int returnVal=await authRepository.UpdateAsync(user); 
             //if (returnVal > 0)
             //    return ApiResponse<string>.SuccessResponse("Password Changed Successfully", HttpStatusCodes.OK.ToString());
-               return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError);   
+               return ApiResponse<string>.ErrorResponse("Something Went Wrong", HttpStatusCodes.InternalServerError.ToString());   
         }
 
         public async Task<ApiResponse<LoginResponseModel>> Login(LoginRequestModel request)
         {
             var user = await authRepository.FirstOrDefaultAsync(x=>x.Email==request.Email);
             if (user is null)
-                return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest);
+                return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest.ToString());
 
             //if((AppEncryption.HashPassword(request.Password,user.Salt)) != user.Password)
             //    return ApiResponse<LoginResponseModel>.ErrorResponse("Invalid credentials",HttpStatusCodes.BadRequest); 

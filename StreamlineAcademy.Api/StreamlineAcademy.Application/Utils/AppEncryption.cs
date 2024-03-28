@@ -18,7 +18,7 @@ namespace StreamlineAcademy.Application.Utils
 		{
 			var PasswordWithSalt = string.Concat(password, salt);
 			var sha = SHA256.Create();
-			var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(PassWithSalt!));
+			var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(PasswordWithSalt!));
 			return Convert.ToBase64String(bytes);
 		}
 		public static bool ComparePassword(string hashPassword, string password, string salt)
