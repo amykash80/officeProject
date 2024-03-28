@@ -14,8 +14,8 @@ namespace StreamlineAcademy.Application.Shared
         public T? Result { get; set; }
         public int StatusCode { get; set; }
 
-        public static ApiResponse<T> SuccessResponse(T? result, string message = "Success",string warningMessege="", int statusCode = HttpStatusCodes.OK)
-        { 
+        public static ApiResponse<T> SuccessResponse(T? result, string message = "Success",int statusCode = HttpStatusCodes.OK, string? warningMessege="")
+		{ 
             return new ApiResponse<T>() { 
             IsSuccess=true,
             Message = message,
@@ -25,7 +25,7 @@ namespace StreamlineAcademy.Application.Shared
             }; 
         }
 
-        public static ApiResponse<T> ErrorResponse( string message = "Error", string warningMessege = "" ,int statusCode = HttpStatusCodes.BadRequest)
+        public static ApiResponse<T> ErrorResponse( string message = "Error" ,int statusCode = HttpStatusCodes.BadRequest, string? warningMessege = "")
         {                 
             return new ApiResponse<T>()
             {
