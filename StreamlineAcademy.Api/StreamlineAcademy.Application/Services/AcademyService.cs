@@ -114,30 +114,22 @@ namespace StreamlineAcademy.Application.Services
         {
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (existingAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found", HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound,HttpStatusCodes.NotFound);
 
-            var result = await academyRepository.DeleteAsync(existingAcademy);
-            if (result > 0)
+            var result = await userRepository.FirstOrDefaultAsync(x => x.Id == existingAcademy.Id);
+            result.IsActive = false;
+
+            if (result is not null )
             {
-                var responseModel = new AcademyResponseModel
+                int isSoftDelted = await academyRepository.Delete(result);
+                if (isSoftDelted > 0)
                 {
-                    Id = existingAcademy.Id,
-                    AcademyName = existingAcademy.AcademyName,
-                    Email = existingAcademy.User.Email,
-                    PhoneNumber = existingAcademy.User.PhoneNumber,
-                    AcademyAdmin = existingAcademy.User.Name,
-                    PostalCode = existingAcademy.User.PostalCode,
-                    Address = existingAcademy.User.Address,
-                    AcademyType = existingAcademy.AcademyType.Name,
-                    CountryName = existingAcademy.Country.CountryName,
-                    StateName = existingAcademy.State.StateName,
-                    CityName = existingAcademy.City.CityName,
-                    UserRole = existingAcademy.User.UserRole
-                };
-                //var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
-                return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel, "Enquiry Deleted Successfullly");
-            }
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError);
+					var returnVal = await academyRepository.GetAcademyById(existingAcademy.Id);
+					return ApiResponse<AcademyResponseModel>.SuccessResponse(returnVal, APIMessages.AcademyManagement.AcademyDeleted);
+
+				}
+			} 
+            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError); 
         }
          
 

@@ -71,6 +71,9 @@ public static class APIMessages
 			public static readonly string AcademyAdded = "Academy Registered Successfully.";
 
 			public static readonly string AcademyUpdated = "Academy Updated Successfully.";
+
+			public static readonly string AcademyDeleted = "Academy Deleted Successfully.";
+
 		}
 
 		public static class EnquiryManagement

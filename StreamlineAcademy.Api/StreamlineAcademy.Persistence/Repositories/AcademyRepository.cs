@@ -27,9 +27,14 @@ namespace StreamlineAcademy.Persistence.Repositories
         {
 			this.context = context;
         }
-        
 
-        public async Task<AcademyResponseModel> GetAcademyById(Guid id)
+		public async Task<int> Delete(User model)
+		{
+			await Task.Run(()=>context.Set<User>().Update(model));
+		    return await context.SaveChangesAsync();
+		}
+
+		public async Task<AcademyResponseModel> GetAcademyById(Guid id)
         {
 
             var academy = await context.Academies

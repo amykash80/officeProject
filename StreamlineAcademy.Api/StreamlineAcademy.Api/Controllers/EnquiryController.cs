@@ -22,27 +22,27 @@ namespace StreamlineAcademy.Api.Controllers
             this.enquiryService = enquiryService;
         }
 
-        [HttpPost]
-        public async Task<ApiResponse<EnquiryResponseModel>> AddEnquiry(EnquiryRequestModel model) => await enquiryService.AddEnquiry(model);
+        [HttpPost("add")]
+        public async Task<ApiResponse<EnquiryResponseModel>> PostEnquiry(EnquiryRequestModel model) => await enquiryService.AddEnquiry(model);
 
-        [HttpPut]
+        [HttpPut("update")]
 
         public async Task<ApiResponse<EnquiryResponseModel>> UpdateEnquiry(EnquiryUpdateRequest model) => await enquiryService.UpdateEnquiry(model);
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("delete/{id:guid}")]
 
         public async Task<ApiResponse<EnquiryResponseModel>> DeleteEnquiry (Guid id) => await enquiryService.DeleteEnquiry(id);
 
-        [HttpGet]
+        [HttpGet("getAll")]
 
         public async Task<ApiResponse<IEnumerable<EnquiryResponseModel>>> GetAllEnquiries() => await enquiryService.GetAllEnquiries();
 
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("getById/{id:guid}")]
 
         public async Task<ApiResponse<EnquiryResponseModel>> GetEnquiryById(Guid id) => await enquiryService.GetEnquiryById(id);
 
-        [HttpGet("check-enquiryemail/{enquiryEmail}")]
+        [HttpGet("check-email/{enquiryEmail}")]
 
         public async Task<IResult> IsAcademyEmailUnique(string enquiryEmail)
         {
