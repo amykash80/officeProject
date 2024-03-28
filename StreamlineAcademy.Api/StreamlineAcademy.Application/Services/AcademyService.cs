@@ -137,6 +137,7 @@ namespace StreamlineAcademy.Application.Services
         public async Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest request)
         {
             var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
+
             if (existAcademy is null)
                 return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
             existAcademy = new Academy
