@@ -49,25 +49,11 @@ namespace StreamlineAcademy.Application.Services
         {
             var academy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (academy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("No Academy Found", HttpStatusCodes.NotFound);
-            var responseModel = new AcademyResponseModel()
-            {
-                Id = academy.Id,
-                AcademyName = academy.AcademyName,
-                Email = academy.User!.Email,
-                PhoneNumber = academy.User.PhoneNumber,
-                AcademyAdmin = academy.User.Name,
-                PostalCode = academy.User.PostalCode,
-                Address = academy.User.Address,
-                AcademyType = academy.AcademyType!.Name,
-                CountryName = academy.Country!.CountryName,
-                StateName = academy.State!.StateName,
-                CityName = academy.City!.CityName,
-                UserRole = academy.User.UserRole
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound, HttpStatusCodes.NotFound);
 
-            };
+            var responseModel = await academyRepository.GetAcademyById(id);
+           
             return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel);
-            //return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(await academyRepository.GetAcademyById(id)));
         }
 
         public async Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies()
@@ -75,23 +61,30 @@ namespace StreamlineAcademy.Application.Services
             var returnVal = await academyRepository.GetAllAcademies();
             if (returnVal is not null)
                 return ApiResponse<IEnumerable<AcademyResponseModel>>.SuccessResponse(returnVal.OrderBy(_=>_.AcademyName),$"Found {returnVal.Count()} Academies");
-                return ApiResponse<IEnumerable<AcademyResponseModel>>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+                return ApiResponse<IEnumerable<AcademyResponseModel>>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound,HttpStatusCodes.NotFound);
         }
 
         public async Task<ApiResponse<AcademyResponseModel>> RegisterAcademy(AcademyRequestModel request)
         { 
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.AcademyName == request.AcademyName);
             if (existingAcademy is not  null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy already registered",HttpStatusCodes.Conflict);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyAlreadyRegistered,HttpStatusCodes.Conflict);
 
             var existingEmail = await userRepository.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (existingEmail is not null)
-              return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy with this email already registered",HttpStatusCodes.Conflict); 
+              return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyAlreadyRegistered,HttpStatusCodes.Conflict); 
 
             var user = mapper.Map<User>(request);
             user.Salt = AppEncryption.GenerateSalt();
             user.Password=AppEncryption.CreatePassword(request.Password!,user.Salt);
-            user.UserRole = UserRole.AcademyAdmin; 
+            user.UserRole = UserRole.AcademyAdmin;
+            user.CreatedBy = Guid.Empty;
+            user.CreatedDate= DateTime.Now;
+            user.ModifiedBy = Guid.Empty;
+            user.ModifiedDate= DateTime.Now;
+            user.IsActive = true;
+
+
             var returnVal = await userRepository.InsertAsync(user); 
             if (returnVal > 0)
             {
@@ -105,9 +98,9 @@ namespace StreamlineAcademy.Application.Services
                     var res = await academyRepository.GetAcademyById(academy.Id);
                     return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(res)); 
                 } 
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest); 
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.TechnicalError, HttpStatusCodes.BadRequest); 
             }
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("something went Wrong", HttpStatusCodes.BadRequest); 
+            return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.TechnicalError, HttpStatusCodes.BadRequest); 
         }
 
         public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id)
@@ -119,6 +112,7 @@ namespace StreamlineAcademy.Application.Services
 
             var result = await userRepository.FirstOrDefaultAsync(x => x.Id == existingAcademy.Id);
             result.IsActive = false;
+            result.DeletedDate = DateTime.Now;
 
             if (result is not null )
             {
@@ -130,17 +124,17 @@ namespace StreamlineAcademy.Application.Services
 
 				}
 			} 
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError); 
+            return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.TechnicalError, HttpStatusCodes.InternalServerError); 
         }
          
 
         public async Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest request)
         {
             var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
-
             if (existAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
-            existAcademy = new Academy
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound, HttpStatusCodes.NotFound);
+
+            var academy = new Academy
             {
                 Id = existAcademy.Id,
                 AcademyName = request.AcademyName,
@@ -167,9 +161,9 @@ namespace StreamlineAcademy.Application.Services
                     CityName = existAcademy.City!.CityName,
                     UserRole = existAcademy.User.UserRole
                 };
-                return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel, "Academy Updated Successfully");
+                return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel,APIMessages.AcademyManagement.AcademyUpdated);
             }
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
+            return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.TechnicalError, HttpStatusCodes.InternalServerError);
         }
 
         public async Task<bool> IsAcademyNameUnique(string name)
