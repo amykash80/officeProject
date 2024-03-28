@@ -98,8 +98,10 @@ namespace StreamlineAcademy.Application.Services
         public  async Task<ApiResponse<EnquiryResponseModel>> DeleteEnquiry(Guid id)
         { 
             var existingEnquiry = await enquiryrepository.GetByIdAsync(x => x.Id == id);
+
             if (existingEnquiry is null)
                 return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry Not Found");
+
             existingEnquiry.IsActive = false;
             var result = await enquiryrepository.DeleteAsync(existingEnquiry);
             if (result is > 0)
