@@ -10,10 +10,10 @@ namespace StreamlineAcademy.Domain.Entities
 {
     public class City : BaseModel
     { 
-        public string CityName { get; set; } = null!; 
+        public string? CityName { get; set; } 
         public Guid? StateId { get; set; }
         [ForeignKey(nameof(StateId))]
-        public State State { get; set; } = null!;
+        public State? State { get; set; } 
 
 		#region navigation
 		public ICollection<Academy>? Academies { get; set; }

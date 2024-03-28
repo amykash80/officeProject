@@ -10,18 +10,17 @@ namespace StreamlineAcademy.Domain.Entities
 {
     public class User:BaseModel
     { 
-        public string Name { get; set; } = null!;
-        public string Address { get; set; } = null!;
-        public string PostalCode { get; set; } = null!;
-        public string PhoneNumber { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string Salt { get; set; } = null!;
+        public string? Name { get; set; } 
+        public string? Address { get; set; } 
+        public string? PostalCode { get; set; } 
+        public string? PhoneNumber { get; set; } 
+        public string? Email { get; set; } 
+        public string? Password { get; set; } 
+        public string? Salt { get; set; } 
         public UserRole UserRole { get; set; }
-        public string? ResetCode { get; set; } = null!;
-
+        public string? ResetCode { get; set; } 
 		#region navigation
-		public Academy Academy { get; set; } = null!;
+		public Academy? Academy { get; set; } 
 		#endregion
 	}
 }

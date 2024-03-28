@@ -12,22 +12,22 @@ namespace StreamlineAcademy.Domain.Entities
 {
     public class Academy:BaseModel
     {
-        public string AcademyName { get; set; } =null!;
+        public string? AcademyName { get; set; } 
   
         [ForeignKey(nameof(Id))]
-        public User User { get; set; } = null!;
+        public User? User { get; set; }
         public Guid AcademyTypeId { get; set; }
 
         [ForeignKey(nameof(AcademyTypeId))]
-        public AcademyType AcademyType { get; set; } = null!;
+        public AcademyType? AcademyType { get; set; }
         public Guid CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; } = null!;
+        public Country? Country { get; set; }
         public Guid StateId { get; set; }
         [ForeignKey(nameof(StateId))]
-        public State State { get; set; } = null!;
+        public State? State { get; set; } 
         public Guid CityId { get; set; }
         [ForeignKey(nameof(CityId))]
-        public City City { get; set; } = null!; 
+        public City? City { get; set; }  
     }
 }

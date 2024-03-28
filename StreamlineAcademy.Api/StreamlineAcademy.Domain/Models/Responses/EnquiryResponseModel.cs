@@ -12,5 +12,6 @@ namespace StreamlineAcademy.Domain.Models.Responses
     {
         public Guid Id { get; set; }
         public RegistrationStatus RegistrationStatus { get; set; } 
+        public bool IsActive { get; set; }
     }
 }
