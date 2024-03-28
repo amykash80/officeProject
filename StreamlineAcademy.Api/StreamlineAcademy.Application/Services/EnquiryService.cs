@@ -32,25 +32,67 @@ namespace StreamlineAcademy.Application.Services
 
             if (await enquiryrepository.FirstOrDefaultAsync(x => x.Email == request.Email ) is not null)
                 return ApiResponse<EnquiryResponseModel>.ErrorResponse(" Email already Exists", HttpStatusCodes.Conflict);
-
-            var enquiry = mapper.Map<Enquiry>(request); 
-            var res = await enquiryrepository.InsertAsync(enquiry); 
+            var enquiry = new Enquiry()
+            {
+                Name = request.Name,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                IsActive = true,
+                CreatedBy = Guid.Empty,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                DeletedBy = Guid.Empty,
+                DeletedDate = DateTime.Now,
+            };
+            var res = await enquiryrepository.InsertAsync(enquiry);
             if (res > 0)
-                return ApiResponse<EnquiryResponseModel>.SuccessResponse(mapper.Map<EnquiryResponseModel>(enquiry), "Enquiry Added Successfully", HttpStatusCodes.Created);
-                return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again",HttpStatusCodes.InternalServerError); 
+            {
+                var enquiryResponse = await enquiryrepository.GetByIdAsync(x => x.Id == enquiry.Id);
+                var response = new EnquiryResponseModel()
+                {
+                    Id = enquiryResponse.Id,
+                    Name = enquiryResponse.Name,
+                    Email = enquiryResponse.Email,
+                    PhoneNumber = enquiryResponse.PhoneNumber,
+                    IsActive = true,
+                };
+                return ApiResponse<EnquiryResponseModel>.SuccessResponse(response, "Enquiry Added Successfully", HttpStatusCodes.Created);
+            }
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again",HttpStatusCodes.InternalServerError); 
         }
 
         public async Task<ApiResponse<EnquiryResponseModel>> UpdateEnquiry(EnquiryUpdateRequest request)
         {
             var result = await enquiryrepository.GetByIdAsync(x => x.Id == request.Id); 
             if(result is null)
-            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound);
-
-            var enquiry = mapper.Map(request,result); 
-            var returnVal=  await enquiryrepository.UpdateAsync(enquiry); 
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry not found", HttpStatusCodes.NotFound); 
+            var enquiry = new Enquiry()
+            {
+                Name = request.Name,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                IsActive = true,
+                CreatedBy = Guid.Empty,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                DeletedBy = Guid.Empty,
+                DeletedDate = DateTime.Now,
+            };
+            var returnVal=  await enquiryrepository.UpdateAsync(enquiry);
             if (returnVal is > 0)
-            return ApiResponse<EnquiryResponseModel>.SuccessResponse(mapper.Map<EnquiryResponseModel>(enquiry),"Enquiry Updated Successfullly");
-            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError); 
+            {
+                var enquiryResponse = await enquiryrepository.GetByIdAsync(x => x.Id == enquiry.Id);
+                var response = new EnquiryResponseModel()
+                {
+                    Id = enquiryResponse.Id,
+                    Name = enquiryResponse.Name,
+                    Email = enquiryResponse.Email,
+                    PhoneNumber = enquiryResponse.PhoneNumber,
+                    IsActive = true,
+                };
+                return ApiResponse<EnquiryResponseModel>.SuccessResponse(response, "Enquiry Update Successfully", HttpStatusCodes.Created);
+            }
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
         }
 
         public  async Task<ApiResponse<EnquiryResponseModel>> DeleteEnquiry(Guid id)
@@ -58,22 +100,40 @@ namespace StreamlineAcademy.Application.Services
             var existingEnquiry = await enquiryrepository.GetByIdAsync(x => x.Id == id);
             if (existingEnquiry is null)
                 return ApiResponse<EnquiryResponseModel>.ErrorResponse("Enquiry Not Found");
-           
+            existingEnquiry.IsActive = false;
             var result = await enquiryrepository.DeleteAsync(existingEnquiry);
             if (result is > 0)
             {
-                var deleteResponse = mapper.Map<EnquiryResponseModel>(existingEnquiry);
+                var deleteResponse = new EnquiryResponseModel
+                {
+                    Id = existingEnquiry.Id,
+                    Name = existingEnquiry.Name,
+                    Email = existingEnquiry.Email,
+                    PhoneNumber = existingEnquiry.PhoneNumber,
+                    IsActive = true,
+                };
                 return ApiResponse<EnquiryResponseModel>.SuccessResponse(deleteResponse, "Enquiry Deleted Successfullly");
             }
-            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError); 
+            return ApiResponse<EnquiryResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
         }
 
         public async Task<ApiResponse<IEnumerable<EnquiryResponseModel>>> GetAllEnquiries()
         {
             var enquiryList = await enquiryrepository.GetAllAsync();
-            if(enquiryList.Any())
-                return ApiResponse<IEnumerable<EnquiryResponseModel>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponseModel>>(enquiryList.OrderBy(x=>x.Name)),$"Found {enquiryList.Count()} Enquiries");
-                return ApiResponse<IEnumerable<EnquiryResponseModel>>.ErrorResponse("No Enquiry Found",HttpStatusCodes.NotFound);
+            if (enquiryList.Any())
+            {
+                var sortedEnquiries = enquiryList.OrderBy(x => x.Name).Select(e => new EnquiryResponseModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Email = e.Email,
+                    PhoneNumber = e.PhoneNumber,
+                    IsActive = true
+                });
+                return ApiResponse<IEnumerable<EnquiryResponseModel>>.SuccessResponse(sortedEnquiries, $"Found {enquiryList.Count()} Enquiries");
+                //return ApiResponse<IEnumerable<EnquiryResponseModel>>.SuccessResponse(mapper.Map<IEnumerable<EnquiryResponseModel>>(enquiryList.OrderBy(x => x.Name)), $"Found {enquiryList.Count()} Enquiries");
+            }
+            return ApiResponse<IEnumerable<EnquiryResponseModel>>.ErrorResponse("No Enquiry Found", HttpStatusCodes.NotFound);
         }
 
         public async Task<ApiResponse<EnquiryResponseModel>> GetEnquiryById(Guid id)

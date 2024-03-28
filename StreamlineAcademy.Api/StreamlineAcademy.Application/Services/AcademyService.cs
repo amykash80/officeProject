@@ -47,10 +47,27 @@ namespace StreamlineAcademy.Application.Services
 
         public async Task<ApiResponse<AcademyResponseModel>> GetAcademyById(Guid id)
         {
-            if(await academyRepository.GetByIdAsync(x => x.Id == id) is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("No Academy Found",HttpStatusCodes.NotFound);
+            var academy = await academyRepository.GetByIdAsync(x => x.Id == id);
+            if (academy is null)
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("No Academy Found", HttpStatusCodes.NotFound);
+            var responseModel = new AcademyResponseModel()
+            {
+                Id = academy.Id,
+                AcademyName = academy.AcademyName,
+                Email = academy.User.Email,
+                PhoneNumber = academy.User.PhoneNumber,
+                AcademyAdmin = academy.User.Name,
+                PostalCode = academy.User.PostalCode,
+                Address = academy.User.Address,
+                AcademyType = academy.AcademyType.Name,
+                CountryName = academy.Country.CountryName,
+                StateName = academy.State.StateName,
+                CityName = academy.City.CityName,
+                UserRole = academy.User.UserRole
 
-            return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(await academyRepository.GetAcademyById(id)));
+            };
+            return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel);
+            //return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(await academyRepository.GetAcademyById(id)));
         }
 
         public async Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies()
@@ -94,18 +111,33 @@ namespace StreamlineAcademy.Application.Services
         }
 
         public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id)
-        { 
+        {
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (existingAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found",HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found", HttpStatusCodes.NotFound);
 
             var result = await academyRepository.DeleteAsync(existingAcademy);
             if (result > 0)
-            { 
-                var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
-                return ApiResponse<AcademyResponseModel>.SuccessResponse(returnVal, "Enquiry Deleted Successfullly");
-            } 
-            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError); 
+            {
+                var responseModel = new AcademyResponseModel
+                {
+                    Id = existingAcademy.Id,
+                    AcademyName = existingAcademy.AcademyName,
+                    Email = existingAcademy.User.Email,
+                    PhoneNumber = existingAcademy.User.PhoneNumber,
+                    AcademyAdmin = existingAcademy.User.Name,
+                    PostalCode = existingAcademy.User.PostalCode,
+                    Address = existingAcademy.User.Address,
+                    AcademyType = existingAcademy.AcademyType.Name,
+                    CountryName = existingAcademy.Country.CountryName,
+                    StateName = existingAcademy.State.StateName,
+                    CityName = existingAcademy.City.CityName,
+                    UserRole = existingAcademy.User.UserRole
+                };
+                //var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
+                return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel, "Enquiry Deleted Successfullly");
+            }
+            return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError);
         }
          
 
@@ -114,11 +146,36 @@ namespace StreamlineAcademy.Application.Services
             var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
             if (existAcademy is null)
                 return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
-
-            var academy = mapper.Map(request, existAcademy);
+            existAcademy = new Academy
+            {
+                Id = existAcademy.Id,
+                AcademyName = request.AcademyName,
+                AcademyTypeId = request.AcademyTypeId,
+                CountryId = request.CountryId,
+                StateId = request.StateId,
+                CityId = request.CityId
+            };
+            //var academy = mapper.Map(request, existAcademy);
             var updateAcademy = await academyRepository.UpdateAsync(existAcademy);
             if (updateAcademy is > 0)
-                return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(academy), "Academy Updated Successfullly");
+            {
+                var responseModel = new AcademyResponseModel
+                {
+                    Id = existAcademy.Id,
+                    AcademyName = existAcademy.AcademyName,
+                    Email = existAcademy.User.Email,
+                    PhoneNumber = existAcademy.User.PhoneNumber,
+                    AcademyAdmin = existAcademy.User.Name,
+                    PostalCode = existAcademy.User.PostalCode,
+                    Address = existAcademy.User.Address,
+                    AcademyType = existAcademy.AcademyType.Name,
+                    CountryName = existAcademy.Country.CountryName,
+                    StateName = existAcademy.State.StateName,
+                    CityName = existAcademy.City.CityName,
+                    UserRole = existAcademy.User.UserRole
+                };
+                return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel, "Academy Updated Successfully");
+            }
             return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong,please try again", HttpStatusCodes.InternalServerError);
         }
 
