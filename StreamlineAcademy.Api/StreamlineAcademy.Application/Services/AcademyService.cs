@@ -83,7 +83,7 @@ namespace StreamlineAcademy.Application.Services
                 var result = await academyRepository.InsertAsync(academy);
                 if (result > 0)
 				{
-                    var emailSent = await emailHelperService.SendRegistrationEmail(user.Email, user.Name, user.Password);
+                    var isEmailSent = await emailHelperService.SendRegistrationEmail(user.Email, user.Name, user.Password);
 					var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                     var res = await academyRepository.GetAcademyById(academy.Id);
                     return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(res)); 
