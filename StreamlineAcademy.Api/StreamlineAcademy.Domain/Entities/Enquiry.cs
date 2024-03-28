@@ -13,8 +13,9 @@ namespace StreamlineAcademy.Domain.Entities
     {
         public string? Name { get; set; }
         public string? Email { get; set; } 
-        public string? PhoneNumber { get; set; } 
-        public RegistrationStatus RegistrationStatus { get; set; }=RegistrationStatus.Pending;
+        public string? PhoneNumber { get; set; }
+		public bool IsActive { get; set; }
+		public RegistrationStatus RegistrationStatus { get; set; }=RegistrationStatus.Pending;
 
     }
 }
