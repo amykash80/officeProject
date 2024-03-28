@@ -97,14 +97,21 @@ namespace StreamlineAcademy.Application.Services
         { 
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
             if (existingAcademy is null)
-                return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy Not Found",HttpStatusCodes.NotFound);
+                return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound,HttpStatusCodes.NotFound);
 
-            var result = await academyRepository.DeleteAsync(existingAcademy);
-            if (result > 0)
-            { 
-                var returnVal=await academyRepository.GetAcademyById(existingAcademy.Id);
-                return ApiResponse<AcademyResponseModel>.SuccessResponse(returnVal, "Enquiry Deleted Successfullly");
-            } 
+            var result = await userRepository.FirstOrDefaultAsync(x => x.Id == existingAcademy.Id);
+            result.IsActive = false;
+
+            if (result is not null )
+            {
+                int isSoftDelted = await academyRepository.Delete(result);
+                if (isSoftDelted > 0)
+                {
+					var returnVal = await academyRepository.GetAcademyById(existingAcademy.Id);
+					return ApiResponse<AcademyResponseModel>.SuccessResponse(returnVal, APIMessages.AcademyManagement.AcademyDeleted);
+
+				}
+			} 
             return ApiResponse<AcademyResponseModel>.ErrorResponse("Something Went Wrong, please try again", HttpStatusCodes.InternalServerError); 
         }
          

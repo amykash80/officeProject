@@ -23,22 +23,22 @@ namespace StreamlineAcademy.Api.Controllers
             this.academyService = academyService;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ApiResponse<AcademyResponseModel>> RegisterAcademy(AcademyRequestModel request) => await academyService.RegisterAcademy(request);
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<ApiResponse<IEnumerable<AcademyResponseModel>>> GetAllAcademies() => await academyService.GetAllAcademies();
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("getById/{id:guid}")]
         public async Task<ApiResponse<AcademyResponseModel>> GetAcademyById(Guid id) => await academyService.GetAcademyById(id);
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("delete/{id:guid}")]
         public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id) => await academyService.DeleteAcademy(id);
 
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest model) => await academyService.UpdateAcademy(model);
 
-        [HttpGet("check-academyname/{academyName}")]
+        [HttpGet("check-name/{academyName}")]
 
         public async Task<IResult> IsAcadeyNameUnique(string academyName)
         {
@@ -46,7 +46,7 @@ namespace StreamlineAcademy.Api.Controllers
             return Results.Ok(isUnique);
         }
 
-        [HttpGet("check-academyemail/{academyEmail}")]
+        [HttpGet("check-email/{academyEmail}")]
 
         public async Task<IResult> IsAcademyEmailUnique(string academyEmail)
         {
