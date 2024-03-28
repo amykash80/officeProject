@@ -54,15 +54,15 @@ namespace StreamlineAcademy.Application.Services
             {
                 Id = academy.Id,
                 AcademyName = academy.AcademyName,
-                Email = academy.User.Email,
+                Email = academy.User!.Email,
                 PhoneNumber = academy.User.PhoneNumber,
                 AcademyAdmin = academy.User.Name,
                 PostalCode = academy.User.PostalCode,
                 Address = academy.User.Address,
-                AcademyType = academy.AcademyType.Name,
-                CountryName = academy.Country.CountryName,
-                StateName = academy.State.StateName,
-                CityName = academy.City.CityName,
+                AcademyType = academy.AcademyType!.Name,
+                CountryName = academy.Country!.CountryName,
+                StateName = academy.State!.StateName,
+                CityName = academy.City!.CityName,
                 UserRole = academy.User.UserRole
 
             };
@@ -100,7 +100,7 @@ namespace StreamlineAcademy.Application.Services
                 var result = await academyRepository.InsertAsync(academy);
                 if (result > 0)
 				{
-                    var isEmailSent = await emailHelperService.SendRegistrationEmail(user.Email, user.Name, user.Password);
+                    var isEmailSent = await emailHelperService.SendRegistrationEmail(user.Email!, user.Name!, user.Password);
 					var updateStatusResponse = await academyRepository.UpdateRegistrationStatus(academy.Id, RegistrationStatus.Approved);
                     var res = await academyRepository.GetAcademyById(academy.Id);
                     return ApiResponse<AcademyResponseModel>.SuccessResponse(mapper.Map<AcademyResponseModel>(res)); 
@@ -113,6 +113,7 @@ namespace StreamlineAcademy.Application.Services
         public async Task<ApiResponse<AcademyResponseModel>> DeleteAcademy(Guid id)
         {
             var existingAcademy = await academyRepository.GetByIdAsync(x => x.Id == id);
+
             if (existingAcademy is null)
                 return ApiResponse<AcademyResponseModel>.ErrorResponse(APIMessages.AcademyManagement.AcademyNotFound,HttpStatusCodes.NotFound);
 
@@ -136,6 +137,7 @@ namespace StreamlineAcademy.Application.Services
         public async Task<ApiResponse<AcademyResponseModel>> UpdateAcademy(AcademyUpdateRequest request)
         {
             var existAcademy = await academyRepository.GetByIdAsync(x => x.Id == request.Id);
+
             if (existAcademy is null)
                 return ApiResponse<AcademyResponseModel>.ErrorResponse("Academy not found", HttpStatusCodes.NotFound);
             existAcademy = new Academy
@@ -147,7 +149,6 @@ namespace StreamlineAcademy.Application.Services
                 StateId = request.StateId,
                 CityId = request.CityId
             };
-            //var academy = mapper.Map(request, existAcademy);
             var updateAcademy = await academyRepository.UpdateAsync(existAcademy);
             if (updateAcademy is > 0)
             {
@@ -155,15 +156,15 @@ namespace StreamlineAcademy.Application.Services
                 {
                     Id = existAcademy.Id,
                     AcademyName = existAcademy.AcademyName,
-                    Email = existAcademy.User.Email,
+                    Email = existAcademy.User!.Email,
                     PhoneNumber = existAcademy.User.PhoneNumber,
                     AcademyAdmin = existAcademy.User.Name,
                     PostalCode = existAcademy.User.PostalCode,
                     Address = existAcademy.User.Address,
-                    AcademyType = existAcademy.AcademyType.Name,
-                    CountryName = existAcademy.Country.CountryName,
-                    StateName = existAcademy.State.StateName,
-                    CityName = existAcademy.City.CityName,
+                    AcademyType = existAcademy.AcademyType!.Name,
+                    CountryName = existAcademy.Country!.CountryName,
+                    StateName = existAcademy.State!.StateName,
+                    CityName = existAcademy.City!.CityName,
                     UserRole = existAcademy.User.UserRole
                 };
                 return ApiResponse<AcademyResponseModel>.SuccessResponse(responseModel, "Academy Updated Successfully");
