@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using StreamlineAcademy.Application.Abstractions.Identity;
+using StreamlineAcademy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace StreamlineAcademy.Infrastructure.Identity
     {
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ContextService(IHttpContextAccessor httpContextAccessor)
+
+		public ContextService(IHttpContextAccessor httpContextAccessor)
         {
             this.httpContextAccessor = httpContextAccessor;
         }
-
 
         public Guid? GetUserId()
         {
@@ -29,18 +30,11 @@ namespace StreamlineAcademy.Infrastructure.Identity
             return result;
         }
 
-        public string HttpContextClientURL()
-        {
-            var path = httpContextAccessor?.HttpContext?.Request.Path;
-            return $" {httpContextAccessor?.HttpContext?.Request.Scheme}://{httpContextAccessor?.HttpContext?.Request.Host}{httpContextAccessor?.HttpContext?.Request.PathBase}";
-        }
-
-
-        public string HttpContextCurrentURL()
-        {
-            var clientRequest = httpContextAccessor?.HttpContext?.Request.Headers["Referer"];
-            return $"{clientRequest}";
-        }
-
-    }
+		public string? GetRoleName()
+		{
+			
+		    return httpContextAccessor?.HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == AppClaimTypes.UserRole)?.Value;
+			
+		}
+	}
 }

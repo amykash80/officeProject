@@ -56,16 +56,33 @@ public static class APIMessages
         public static readonly string AddressUpdated = "Address updated successfully";
     }
 
-    public static class ServiceManagement
+    public static class CourseManagement
     {
-        public static readonly string ServiceNotFound = "Service not found.";
+        public static readonly string CourseNotFound = "Course not found.";
 
-        public static readonly string ServiceAdded = "Service Added Successfully.";
+        public static readonly string CourseAdded = "Course Added Successfully.";
 
-        public static readonly string ServiceUpdated = "Service Updated Successfully.";
+        public static readonly string CourseUpdated = "Course Updated Successfully.";
     }
+		public static class AcademyManagement
+		{
+			public static readonly string AcademyNotFound = "Academy not found.";
 
-    public static class Auth
+			public static readonly string AcademyAdded = "Academy Registered Successfully.";
+
+			public static readonly string AcademyUpdated = "Academy Updated Successfully.";
+		}
+
+		public static class EnquiryManagement
+		{
+			public static readonly string EnquiryNotFound = "Enquiry not found.";
+
+			public static readonly string EnquiryAdded = "Enquiry Added Successfully.";
+
+			public static readonly string EnquiryUpdated = "Enquiry Updated Successfully.";
+		}
+
+		public static class Auth
     {
         public const string UsernameAlreadyTaken = "Username is already taken.";
        

@@ -11,7 +11,7 @@ namespace StreamlineAcademy.Infrastructure.Identity
     {
 
         public const string UserId = nameof(UserId);
+		public const string UserRole = nameof(UserRole);
 
-
-    }
+	}
 }

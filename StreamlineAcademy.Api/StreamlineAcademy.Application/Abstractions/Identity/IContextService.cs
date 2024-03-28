@@ -9,8 +9,7 @@ namespace StreamlineAcademy.Application.Abstractions.Identity
     public interface IContextService
     {
         Guid? GetUserId();
-		string HttpContextClientURL();
+		string? GetRoleName();
 
-		string HttpContextCurrentURL();
 	}
 }
