@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "8TFLAsamGc0t3vA8qs2zAjh0g7pYDTm8fFuKW4IVpFE=",
+  "Source": "StreamlineAcademy.Api",
+  "BasePath": "_content/StreamlineAcademy.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "StreamlineAcademy.Api\\wwwroot",
+      "Source": "StreamlineAcademy.Api",
+      "ContentRoot": "C:\\NEW Streamline\\officeProject\\officeProject\\StreamlineAcademy.Api\\StreamlineAcademy.Api\\wwwroot\\",
+      "BasePath": "_content/StreamlineAcademy.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\NEW Streamline\\officeProject\\officeProject\\StreamlineAcademy.Api\\StreamlineAcademy.Api\\wwwroot\\Files\\TextFile.txt",
+      "SourceId": "StreamlineAcademy.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\NEW Streamline\\officeProject\\officeProject\\StreamlineAcademy.Api\\StreamlineAcademy.Api\\wwwroot\\",
+      "BasePath": "_content/StreamlineAcademy.Api",
+      "RelativePath": "Files/TextFile.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\TextFile.txt"
+    }
+  ]
+}

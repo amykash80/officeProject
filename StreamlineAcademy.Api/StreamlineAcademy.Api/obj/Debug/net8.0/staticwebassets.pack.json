@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\NEW Streamline\\officeProject\\officeProject\\StreamlineAcademy.Api\\StreamlineAcademy.Api\\wwwroot\\Files\\TextFile.txt",
+      "PackagePath": "staticwebassets\\Files\\TextFile.txt"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.StreamlineAcademy.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.StreamlineAcademy.Api.props",
+      "PackagePath": "build\\StreamlineAcademy.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.StreamlineAcademy.Api.props",
+      "PackagePath": "buildMultiTargeting\\StreamlineAcademy.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.StreamlineAcademy.Api.props",
+      "PackagePath": "buildTransitive\\StreamlineAcademy.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
