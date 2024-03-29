@@ -7012,11 +7012,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Infrastructure\\StreamlineAcademy.Infrastructure.csproj",
+      "projectUniqueName": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Infrastructure\\StreamlineAcademy.Infrastructure.csproj",
       "projectName": "StreamlineAcademy.Infrastructure",
-      "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Infrastructure\\StreamlineAcademy.Infrastructure.csproj",
+      "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Infrastructure\\StreamlineAcademy.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Infrastructure\\obj\\",
+      "outputPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7033,8 +7033,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj": {
-              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj"
+            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj": {
+              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj"
             }
           }
         }

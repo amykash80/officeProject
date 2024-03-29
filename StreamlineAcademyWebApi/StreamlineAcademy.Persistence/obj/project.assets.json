@@ -4241,11 +4241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
+      "projectUniqueName": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
       "projectName": "StreamlineAcademy.Persistence",
-      "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
+      "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Persistence\\obj\\",
+      "outputPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4262,11 +4262,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj": {
-              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj"
+            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj": {
+              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Application\\StreamlineAcademy.Application.csproj"
             },
-            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Domain\\StreamlineAcademy.Domain.csproj": {
-              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Domain\\StreamlineAcademy.Domain.csproj"
+            "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Domain\\StreamlineAcademy.Domain.csproj": {
+              "projectPath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Domain\\StreamlineAcademy.Domain.csproj"
             }
           }
         }

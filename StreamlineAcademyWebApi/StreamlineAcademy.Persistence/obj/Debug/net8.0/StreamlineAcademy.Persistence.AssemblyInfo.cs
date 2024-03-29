@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StreamlineAcademy.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1114dfcb8fa645e0842f5d3f700e0f3b6e0cd75")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b990cd8b8236e557e2ab762be2a3e3ff05bc67a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("StreamlineAcademy.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StreamlineAcademy.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

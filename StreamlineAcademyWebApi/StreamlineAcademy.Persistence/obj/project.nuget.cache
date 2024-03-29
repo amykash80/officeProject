@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "snZ/vCSJT15l2qE5DaqKgd/rWt4Q/zY1yqYjerKVXjm3IlJ7ng1+xyQ59E3i8Uzs280kvLtu5985y7ASkUK5Jg==",
+  "dgSpecHash": "kGlYe4iYFh+cUoHjj6j9dAUK48bVDzwN1AFGVFOyQAT5C1So9Ub4EZR8wu20cW6xfLy7HR/irDaVc5MoRnXVvA==",
   "success": true,
-  "projectFilePath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Api\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
+  "projectFilePath": "E:\\LocalRepository\\StreamlineAcademy\\StreamlineAcademyWebApi\\StreamlineAcademy.Persistence\\StreamlineAcademy.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenovo\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
