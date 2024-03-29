@@ -73,6 +73,7 @@ public static class APIMessages
 			public static readonly string AcademyUpdated = "Academy Updated Successfully.";
 
 			public static readonly string AcademyDeleted = "Academy Deleted Successfully.";
+            public static readonly string AcademyAlreadyRegistered = "Academy with this email already registered";
 
 		}
 

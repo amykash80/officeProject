@@ -52,15 +52,15 @@ namespace StreamlineAcademy.Persistence.Repositories
                 {
                     Id = academy.Id,
                     AcademyName = academy.AcademyName,
-                    Email = academy.User.Email,
+                    Email = academy.User!.Email,
                     PhoneNumber = academy.User.PhoneNumber,
                     AcademyAdmin = academy.User.Name,
                     PostalCode = academy.User.PostalCode,
                     Address = academy.User.Address,
-                    AcademyType = academy.AcademyType.Name,
-                    CountryName = academy.Country.CountryName,
-                    StateName = academy.State.StateName,
-                    CityName = academy.City.CityName,
+                    AcademyType = academy.AcademyType!.Name,
+                    CountryName = academy.Country!.CountryName,
+                    StateName = academy.State!.StateName,
+                    CityName = academy.City!.CityName,
                     UserRole = academy.User.UserRole
                 };
 
